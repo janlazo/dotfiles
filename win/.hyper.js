@@ -80,9 +80,9 @@ module.exports = {
     shellArgs: [],
 
     // for environment variables
-        // unset TERM in Windows
-        //   - cmd and powershell don't use them
-        //   - if TERM is unset, sh.exe will set it to cygwin
+    // unset TERM in Windows
+    //   - cmd and powershell don't use them
+    //   - if TERM is unset, sh.exe will set it to cygwin
     env: {TERM: ''},
 
     // set to false for no bell
@@ -99,7 +99,7 @@ module.exports = {
     // bellSoundURL: 'http://example.com/bell.mp3',
 
     // for advanced config flags please refer to https://hyper.is/#cfg
-        windowSize: [800, 600],
+    windowSize: [800, 600],
   },
 
   // a list of plugins to fetch and install from npm
