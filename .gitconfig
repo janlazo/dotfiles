@@ -1,0 +1,58 @@
+[push]
+	default = current
+[core]
+	editor = vim
+	autocrlf = input
+	eol = lf
+[color]
+	ui = true
+[url "https://github.com/"]
+	insteadOf = gh:
+[alias]
+	# Fix the repo
+	fuck = reset HEAD --hard
+
+	# General
+	st = status -s
+	cf = config
+	rb = rebase
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbs = rebase --skip
+	rva = revert --abort
+	rvc = revert --continue
+	rvq = revert --quit
+	pl = pull --rebase
+	df = diff
+	dfc = diff --cached
+	co = checkout
+	ph = push
+	pha = push --all
+	phf = push --force-with-lease
+	phfa = push --force-with-lease --all
+	mg = merge
+	br = branch
+	cm = commit
+	clo = clone
+	l = log --graph --decorate --oneline
+	la = log --graph --decorate --oneline --all
+
+	# Submodules
+	subm = submodule
+	subm-a = submodule add
+	subm-a-1 = submodule add --depth 1
+	subm-st = submodule status --recursive
+	subm-i = submodule init
+	subm-di = submodule deinit --force
+	subm-up = submodule update --init --recursive
+	subm-up-1 = submodule update --init --recursive --depth 1
+	subm-up-r = submodule update --init --recursive --remote
+	subm-up-r1 = submodule update --init --recursive --remote --depth 1
+
+	# SVN
+	s-rb = svn rebase
+	s-br = svn branch
+	s-cm = svn dcommit
+	s-clo = svn clone
+[status]
+	submodulesummary = true
