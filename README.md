@@ -4,6 +4,7 @@ Common configs in root directory (ex. emacs, vim)
 
 Windows-specific configs in win/
 
+- Bash - .bashrc
 - [ConEmu][conemu-github] - win/AppData/Roaming/ConEmu.xml
 - [GNU Emacs][emacs-site] - .emacs.d/
 - [Powershell][powershell-github] - win/Documents/WindowsPowershell/

@@ -13,6 +13,9 @@ trim_trailing_whitespace = true
 # 2+ trailing spaces create a newline
 trim_trailing_whitespace = false
 
+[{.bashrc,*.sh}]
+indent_size = 2
+
 [{.vimrc,vimrc,gvimrc,*.vim}]
 indent_size = 2
 
