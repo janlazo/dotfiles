@@ -1,15 +1,18 @@
 # dotfiles
 
-Common configs in root directory (ex. emacs, vim)
-
-Windows-specific configs in win/
-
-- Bash - .bashrc
-- [ConEmu][conemu-github] - win/AppData/Roaming/ConEmu.xml
+Cross-platform
+- bash - .bashrc
 - [GNU Emacs][emacs-site] - .emacs.d/
-- [Powershell][powershell-github] - win/Documents/WindowsPowershell/
-- [hyper.js][hyper-github] - win/.hyper.js
+- [hyper.js][hyper-github]
+    - win/.hyper.js
+- [micro][micro-github]
+    - unix/.config/micro/
 
+Windows-specific
+- [ConEmu][conemu-github] - win/AppData/Roaming/ConEmu.xml
+- [Powershell][powershell-github] - win/Documents/WindowsPowershell/
+
+[micro-github]: https://github.com/zyedidia/micro
 [conemu-github]: https://github.com/Maximus5/ConEmu
 [emacs-site]: https://www.gnu.org/software/emacs/
 [powershell-github]:  https://github.com/PowerShell/PowerShell
