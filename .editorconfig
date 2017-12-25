@@ -19,7 +19,7 @@ indent_size = 2
 [{.vimrc,vimrc,gvimrc,*.vim}]
 indent_size = 2
 
-[*.{js,json,yml,yaml}]
+[*.{js,json,coffee,cson,yml,yaml}]
 indent_size = 2
 
 [*.lua]
