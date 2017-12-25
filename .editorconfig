@@ -4,26 +4,18 @@ root = true
 charset = utf-8
 end_of_line = lf
 indent_style = space
-indent_size = 4
+indent_size = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.md]
 # Github Flavored Markdown
 # 2+ trailing spaces create a newline
+indent_size = 4
 trim_trailing_whitespace = false
 
-[{.bashrc,*.sh}]
-indent_size = 2
-
-[{.vimrc,vimrc,gvimrc,*.vim}]
-indent_size = 2
-
-[*.{js,json,coffee,cson,yml,yaml}]
-indent_size = 2
-
-[*.lua]
-indent_size = 2
+[*.ps1]
+indent_size = 4
 
 [.gitconfig]
 indent_style = tab
