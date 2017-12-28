@@ -8,10 +8,14 @@ Cross-platform
 - [micro][micro-github]
     - unix/.config/micro/
 
-Windows-specific
+Windows
 - [ConEmu][conemu-github] - win/AppData/Roaming/ConEmu.xml
 - [Powershell][powershell-github] - win/Documents/WindowsPowershell/
 
+Unix
+- [nano][nano-site] - unix/.nanorc
+
+[nano-site]: https://www.nano-editor.org/
 [micro-github]: https://github.com/zyedidia/micro
 [conemu-github]: https://github.com/Maximus5/ConEmu
 [emacs-site]: https://www.gnu.org/software/emacs/
