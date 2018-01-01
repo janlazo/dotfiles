@@ -12,6 +12,7 @@ Windows
 
 Unix
 - [nano][nano-site] - unix/.nanorc
+- [tmux][tmux-github] - unix/.tmux.conf
 
 ## LICENSE
 
@@ -31,6 +32,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
+[tmux-github]: https://github.com/tmux/tmux
 [nano-site]: https://www.nano-editor.org/
 [micro-github]: https://github.com/zyedidia/micro
 [conemu-github]: https://github.com/Maximus5/ConEmu
