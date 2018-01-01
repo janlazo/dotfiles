@@ -21,6 +21,7 @@ emacs -batch -l install-packages.el
 Use a batch file to set environment variables before running emacs
 
 ```dosbatch
+@echo off
 set HOME=%USERPROFILE%
-start /min emacs.exe %*
+start /min "Emacs" emacs.exe %*
 ```
