@@ -1,4 +1,4 @@
-﻿function Set-UserPrompt
+function Set-UserPrompt
 {
     # Prep
     $origLastExitCode = $LASTEXITCODE;
@@ -64,6 +64,25 @@ function Has-App
 {
     Param([String]$app = "")
     Get-Command -ErrorAction SilentlyContinue -commandType Application $app
+}
+
+# Setup cmd.exe for Visual Studio 2017 so cl.exe has access to core libraries.
+#
+# References
+# - https://ss64.com/nt/syntax-64bit.html
+# - https://www.appveyor.com/docs/lang/cpp/
+function Setup-VS2017
+{
+    if ($env:PROCESSOR_ARCHITECTURE -eq "AMD64")
+    {
+        $bits = '64'
+    }
+    else
+    {
+        $bits = '32'
+    }
+
+    cmd.exe /k "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
 }
 
 function global:prompt
