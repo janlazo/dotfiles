@@ -3,10 +3,8 @@
 Cross-platform
 - bash - .bashrc
 - [GNU Emacs][emacs-site] - .emacs.d/
-- [hyper.js][hyper-github]
-    - win/.hyper.js
-- [micro][micro-github]
-    - unix/.config/micro/
+- [hyper.js][hyper-github] - win/.hyper.js
+- [micro][micro-github] - unix/.config/micro/
 
 Windows
 - [ConEmu][conemu-github] - win/AppData/Roaming/ConEmu.xml
