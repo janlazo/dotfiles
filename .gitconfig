@@ -1,9 +1,12 @@
 [push]
 	default = current
+[credential]
+	modalPrompt = never
 [core]
 	editor = vim
 	autocrlf = input
 	eol = lf
+	askPass = ""
 [color]
 	ui = true
 [url "https://github.com/"]
