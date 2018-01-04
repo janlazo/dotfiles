@@ -1,18 +1,18 @@
 # dotfiles
 
 Cross-platform
-- bash - unix/.bashrc
-- [GNU Emacs][emacs-site] - .emacs.d/
-- [hyper.js][hyper-github] - win/.hyper.js
-- [micro][micro-github] - unix/.config/micro/
+- [GNU Bash][gnu-bash] - unix/.bashrc
+- [GNU Emacs][gnu-emacs] - .emacs.d/
+- [hyper.js][github-hyper] - win/.hyper.js
+- [micro][github-micro] - unix/.config/micro/
 
 Windows
-- [ConEmu][conemu-github] - win/AppData/Roaming/ConEmu.xml
-- [Powershell][powershell-github] - win/Documents/WindowsPowershell/
+- [ConEmu][github-conemu] - win/AppData/Roaming/ConEmu.xml
+- [Powershell][github-powershell] - win/Documents/WindowsPowershell/
 
 Unix
 - [nano][nano-site] - unix/.nanorc
-- [tmux][tmux-github] - unix/.tmux.conf
+- [tmux][github-tmux] - unix/.tmux.conf
 
 ## LICENSE
 
@@ -32,10 +32,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-[tmux-github]: https://github.com/tmux/tmux
+[github-conemu]: https://github.com/Maximus5/ConEmu
+[github-hyper]: https://github.com/zeit/hyper
+[github-micro]: https://github.com/zyedidia/micro
+[github-powershell]:  https://github.com/PowerShell/PowerShell
+[github-tmux]: https://github.com/tmux/tmux
+[gnu-bash]: https://www.gnu.org/software/bash/
+[gnu-emacs]: https://www.gnu.org/software/emacs/
 [nano-site]: https://www.nano-editor.org/
-[micro-github]: https://github.com/zyedidia/micro
-[conemu-github]: https://github.com/Maximus5/ConEmu
-[emacs-site]: https://www.gnu.org/software/emacs/
-[powershell-github]:  https://github.com/PowerShell/PowerShell
-[hyper-github]: https://github.com/zeit/hyper
