@@ -27,3 +27,7 @@ if command -v ls > /dev/null 2>&1; then
   [ $has_color -eq 1 ] && alias ls='\ls --color=auto'
   alias ls.v='ls -x -hks -bF --group-directories-first'
 fi
+
+if command -v grep > /dev/null 2>&1; then
+  [ $has_color -eq 1 ] && alias grep='\grep --color=auto'
+fi
