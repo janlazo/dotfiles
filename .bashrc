@@ -10,3 +10,5 @@ shopt -s histappend      # append to history file, don't overrite
 HISTCONTROL=ignoreboth   # no duplicate lines, lines starting with space
 HISTFILESIZE=1000        # max num of lines
 HISTSIZE=100             # max num of commands
+
+( echo "$PS1" | grep -q debian_chroot ) && export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\033[00m\]\n\$ '
