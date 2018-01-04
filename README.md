@@ -1,7 +1,7 @@
 # dotfiles
 
 Cross-platform
-- bash - .bashrc
+- bash - unix/.bashrc
 - [GNU Emacs][emacs-site] - .emacs.d/
 - [hyper.js][hyper-github] - win/.hyper.js
 - [micro][micro-github] - unix/.config/micro/
