@@ -37,5 +37,9 @@ if command -v pngcrush > /dev/null 2>&1; then
   alias pngcrush.f='\pngcrush --brute -l 9'
 fi
 
+if command -v desmume > /dev/null 2>&1; then
+  alias desmume.jit='\desmume --cpu-mode=1'
+fi
+
 # Cleanup
 has_color=
