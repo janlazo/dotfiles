@@ -15,6 +15,7 @@ has_color=0
 if [ -t 1 ] && command -v tput > /dev/null 2>&1; then
   ncolors=$(tput colors)
   [ -n "$ncolors" ] && [ $ncolors -ge 8 ] && has_color=1
+  ncolors=
 fi
 
 if [ $has_color -eq 1 ] && ( echo "$PS1" | grep -q debian_chroot ); then
@@ -31,3 +32,6 @@ fi
 if command -v grep > /dev/null 2>&1; then
   [ $has_color -eq 1 ] && alias grep='\grep --color=auto'
 fi
+
+# Cleanup
+has_color=
