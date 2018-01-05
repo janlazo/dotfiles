@@ -1,4 +1,4 @@
-function Set-UserPrompt
+function Prompt
 {
     # Prep
     $origLastExitCode = $LASTEXITCODE;
@@ -83,11 +83,6 @@ function Setup-VS2017
     }
 
     cmd.exe /k "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
-}
-
-function global:prompt
-{
-    Set-UserPrompt;
 }
 
 if ($(Has-App fzf) -and $(Has-App sift)) {
