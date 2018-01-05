@@ -33,5 +33,9 @@ if command -v grep > /dev/null 2>&1; then
   [ $has_color -eq 1 ] && alias grep='\grep --color=auto'
 fi
 
+if command -v pngcrush > /dev/null 2>&1; then
+  alias pngcrush.f='\pngcrush --brute -l 9'
+fi
+
 # Cleanup
 has_color=
