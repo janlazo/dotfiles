@@ -82,7 +82,7 @@ function Setup-VS2017
         $bits = '32'
     }
 
-    cmd.exe /k "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
+    cmd.exe /k set '"VSCMD_START_DIR=%CD%"' '&' "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
 }
 
 if ($(Has-App fzf) -and $(Has-App sift)) {
