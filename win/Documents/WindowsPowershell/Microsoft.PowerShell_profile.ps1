@@ -1,3 +1,12 @@
+if (Test-Path "$PSScriptRoot/profile.dll")
+{
+    Add-Type -Path "$PSScriptRoot/profile.dll"
+}
+elseif (Test-Path "$PSScriptRoot/profile.cs")
+{
+    Add-Type -Path "$PSScriptRoot/profile.cs"
+}
+
 function Prompt
 {
     # Prep
@@ -18,15 +27,6 @@ function Prompt
     $LASTEXITCODE = $origLastExitCode;
 
     return ' ';
-}
-
-function Is-Admin
-{
-    $user   = [Security.Principal.WindowsIdentity]::GetCurrent();
-    $admin  = [Security.Principal.WindowsBuiltInRole]::Administrator;
-    $result = ([Security.Principal.WindowsPrincipal]$user).IsInRole($admin);
-
-    return [bool]$result;
 }
 
 function SymLink
