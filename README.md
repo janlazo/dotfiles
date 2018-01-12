@@ -1,6 +1,7 @@
 # dotfiles
 
 Cross-platform
+- [Atom][github-atom] - .atom/
 - [GNU Bash][gnu-bash] - unix/.bashrc
 - [GNU Emacs][gnu-emacs] - .emacs.d/
 - [hyper.js][github-hyper] - win/.hyper.js
@@ -32,6 +33,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
+[github-atom]: https://github.com/atom/atom
 [github-conemu]: https://github.com/Maximus5/ConEmu
 [github-hyper]: https://github.com/zeit/hyper
 [github-micro]: https://github.com/zyedidia/micro
