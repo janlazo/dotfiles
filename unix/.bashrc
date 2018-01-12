@@ -41,5 +41,15 @@ if command -v desmume > /dev/null 2>&1; then
   alias desmume.jit='\desmume --cpu-mode=1'
 fi
 
+if command -v tar > /dev/null 2&>1; then
+  alias tar='\tar -v --totals --block-number'
+  # Create
+  alias tar.c='tar -c --verify -f';   # tar.c  <archive.tar>    <files>
+  alias tar.cz='tar -cz -f';          # tar.cz <archive.tar.gz> <files>
+  # Extract
+  alias tar.x='tar -x -f';            # tar.x  <archive.tar>
+  alias tar.xz='tar -xz -f';          # tar.xz <archive.tar.gz>
+fi
+
 # Cleanup
 has_color=
