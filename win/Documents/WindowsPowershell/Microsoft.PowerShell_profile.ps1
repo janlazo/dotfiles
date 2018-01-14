@@ -29,36 +29,6 @@ function Prompt
     return ' ';
 }
 
-function SymLink
-{
-    Param(
-        [String]$src  = "",
-        [String]$dest = $PWD.Path
-    )
-
-    if (-Not (IsAdmin))
-    {
-        Write-Output "Need admin permissions to make symlinks";
-        return;
-    }
-
-    # Setup absolute paths of the source and destination files/folders
-    $src = $(Get-Item -Path $src.trim()).FullName;
-    $dest = $dest.trim();
-    $dest_d = $(Get-Item -Path $(Split-Path $dest -parent)).FullName;
-    $dest_f = $(Split-Path $dest -leaf);
-    $flag = "";
-
-    # Setup the directory flag
-    if (Test-Path $src -pathType container)
-    {
-        $flag = "/D";
-    }
-
-    # Make the symlink
-    cmd.exe /c mklink $flag "$dest_d\$dest_f" "$src";
-}
-
 # Silent wrapper of Get-Command
 function Has-App
 {
@@ -73,15 +43,7 @@ function Has-App
 # - https://www.appveyor.com/docs/lang/cpp/
 function Setup-VS2017
 {
-    if ($env:PROCESSOR_ARCHITECTURE -eq "AMD64")
-    {
-        $bits = '64'
-    }
-    else
-    {
-        $bits = '32'
-    }
-
+    $bits = @('64', '32')[$env:PROCESSOR_ARCHITECTURE -eq 'x86']
     cmd.exe /k set '"VSCMD_START_DIR=%CD%"' '&' "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
 }
 
