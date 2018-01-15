@@ -2,7 +2,9 @@
 
 Cross-platform
 - [Atom][github-atom] - .atom/
-- [GNU Bash][gnu-bash] - unix/.bashrc
+- [GNU Bash][gnu-bash]
+  - unix/.bashrc
+  - unix/.bash_profile
 - [GNU Emacs][gnu-emacs] - .emacs.d/
 - [hyper.js][github-hyper] - win/.hyper.js
 - [micro][github-micro] - unix/.config/micro/
