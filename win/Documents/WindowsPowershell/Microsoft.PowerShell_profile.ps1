@@ -47,10 +47,6 @@ function Setup-VS2017
     cmd.exe /k set '"VSCMD_START_DIR=%CD%"' '&' "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
 }
 
-if ($(Has-App fzf) -and $(Has-App sift)) {
-    $env:FZF_DEFAULT_COMMAND = 'sift --targets . 2> nul';
-}
-
 # Powershell 3 modules are not backward compatible
 if ($PSVersionTable.PSVersion.Major -lt 3) {
     return;
