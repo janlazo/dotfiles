@@ -41,7 +41,7 @@ if command -v desmume > /dev/null 2>&1; then
   alias desmume.jit='\desmume --cpu-mode=1'
 fi
 
-if command -v tar > /dev/null 2&>1; then
+if command -v tar > /dev/null 2>&1; then
   alias tar='\tar -v --totals --block-number'
   # Create
   alias tar.c='tar -c --verify -f';   # tar.c  <archive.tar>    <files>
@@ -51,7 +51,7 @@ if command -v tar > /dev/null 2&>1; then
   alias tar.xz='tar -xz -f';          # tar.xz <archive.tar.gz>
 fi
 
-if command -v node > /dev/null 2&>1; then
+if command -v node > /dev/null 2>&1; then
   [ -d ~/.nvm ] || mkdir ~/.nvm;
   export NVM_DIR=~/.nvm
   [ -f ~/.nvm/nvm.sh ] && . ~/.nvm/nvm.sh;
