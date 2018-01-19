@@ -51,5 +51,11 @@ if command -v tar > /dev/null 2&>1; then
   alias tar.xz='tar -xz -f';          # tar.xz <archive.tar.gz>
 fi
 
+if command -v node > /dev/null 2&>1; then
+  [ -d ~/.nvm ] || mkdir ~/.nvm;
+  export NVM_DIR=~/.nvm
+  [ -f ~/.nvm/nvm.sh ] && . ~/.nvm/nvm.sh;
+fi
+
 # Cleanup
 has_color=
