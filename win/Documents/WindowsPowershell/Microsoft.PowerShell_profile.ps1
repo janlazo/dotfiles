@@ -17,8 +17,8 @@ function Prompt {
     Write-Host -ForegroundColor Blue             " $relpath";
 
     # Powershell Prompt Level
-    $prompt = 'PS' + $('>' * ($nestedPromptLevel + 1));
-    Write-Host -ForegroundColor White -nonewline $prompt;
+    $prompt = 'PS' + ('>' * ($nestedPromptLevel + 1));
+    Write-Host -ForegroundColor White -nonewline "$prompt";
 
     # Cleanup
     $LASTEXITCODE = $origLastExitCode;
@@ -48,7 +48,9 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
 
 # vi/emacs keybinds
 Import-Module PSReadline;
-Set-PSReadlineOption -EditMode Emacs -BellStyle Visual -HistoryNoDuplicates;
+Set-PSReadlineOption `
+    -EditMode Emacs -BellStyle Visual -ExtraPromptLineCount 1 `
+    -HistoryNoDuplicates -HistorySearchCaseSensitive;
 if (Which fzf) {
     Set-PSReadlineKeyHandler -Chord Ctrl+R -ScriptBlock {
         $line = $null
