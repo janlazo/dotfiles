@@ -27,7 +27,7 @@ function Prompt {
 
 # Silent wrapper of Get-Command
 function Which {
-    Param([String]$app = "")
+    Param([String] $app = "")
     Get-Command -ErrorAction SilentlyContinue -commandType Application $app
 }
 
@@ -36,7 +36,7 @@ function Which {
 # References
 # - https://ss64.com/nt/syntax-64bit.html
 # - https://www.appveyor.com/docs/lang/cpp/
-function Setup-VS2017 {
+function Enter-VS2017 {
     $bits = @('64', '32')[$env:PROCESSOR_ARCHITECTURE -eq 'x86']
     cmd.exe /k set '"VSCMD_START_DIR=%CD%"' '&' "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
 }
@@ -53,18 +53,17 @@ if (Which fzf) {
     Set-PSReadlineKeyHandler -Chord Ctrl+R -ScriptBlock {
         $line = $null
         $cursor = $null
-        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref] $line, [ref] $cursor)
 
-        $file = (Get-PSReadlineOption).HistorySavePath
-        $result = Get-Content $file | Select-Object -Unique | fzf
+        $history = @(Get-Content (Get-PSReadlineOption).HistorySavePath | Select-Object -Unique)
+        [Array]::reverse($history)
+        $result = $history | fzf
+        if ($LASTEXITCODE) {
+            $result = $line
+        }
 
         [Microsoft.Powershell.PSConsoleReadline]::RevertLine()
-        if ($LASTEXITCODE) {
-            [Microsoft.Powershell.PSConsoleReadline]::Insert($line)
-        }
-        else {
-            [Microsoft.Powershell.PSConsoleReadline]::Insert($result)
-        }
+        [Microsoft.Powershell.PSConsoleReadline]::Insert($result)
     }
 }
 
