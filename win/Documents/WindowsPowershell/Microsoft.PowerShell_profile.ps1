@@ -30,7 +30,7 @@ function Prompt
 }
 
 # Silent wrapper of Get-Command
-function Has-App
+function Which
 {
     Param([String]$app = "")
     Get-Command -ErrorAction SilentlyContinue -commandType Application $app
@@ -55,6 +55,27 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
 # vi/emacs keybinds
 Import-Module PSReadline;
 Set-PSReadlineOption -EditMode Emacs -BellStyle Visual -HistoryNoDuplicates;
+if (Which fzf)
+{
+    Set-PSReadlineKeyHandler -Chord Ctrl+R -ScriptBlock {
+        $line = $null
+        $cursor = $null
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+        $file = (Get-PSReadlineOption).HistorySavePath
+        $result = Get-Content $file | Select-Object -Unique | fzf
+
+        [Microsoft.Powershell.PSConsoleReadline]::RevertLine()
+        if ($LASTEXITCODE)
+        {
+            [Microsoft.Powershell.PSConsoleReadline]::Insert($line)
+        }
+        else
+        {
+            [Microsoft.Powershell.PSConsoleReadline]::Insert($result)
+        }
+    }
+}
 
 # emulate unix programs
 Import-Module Pscx;
