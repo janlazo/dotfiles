@@ -1,14 +1,11 @@
-if (Test-Path "$PSScriptRoot/profile.dll")
-{
+if (Test-Path "$PSScriptRoot/profile.dll") {
     Add-Type -Path "$PSScriptRoot/profile.dll"
 }
-elseif (Test-Path "$PSScriptRoot/profile.cs")
-{
+elseif (Test-Path "$PSScriptRoot/profile.cs") {
     Add-Type -Path "$PSScriptRoot/profile.cs"
 }
 
-function Prompt
-{
+function Prompt {
     # Prep
     $origLastExitCode = $LASTEXITCODE;
 
@@ -25,13 +22,11 @@ function Prompt
 
     # Cleanup
     $LASTEXITCODE = $origLastExitCode;
-
     return ' ';
 }
 
 # Silent wrapper of Get-Command
-function Which
-{
+function Which {
     Param([String]$app = "")
     Get-Command -ErrorAction SilentlyContinue -commandType Application $app
 }
@@ -41,8 +36,7 @@ function Which
 # References
 # - https://ss64.com/nt/syntax-64bit.html
 # - https://www.appveyor.com/docs/lang/cpp/
-function Setup-VS2017
-{
+function Setup-VS2017 {
     $bits = @('64', '32')[$env:PROCESSOR_ARCHITECTURE -eq 'x86']
     cmd.exe /k set '"VSCMD_START_DIR=%CD%"' '&' "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
 }
@@ -55,8 +49,7 @@ if ($PSVersionTable.PSVersion.Major -lt 3) {
 # vi/emacs keybinds
 Import-Module PSReadline;
 Set-PSReadlineOption -EditMode Emacs -BellStyle Visual -HistoryNoDuplicates;
-if (Which fzf)
-{
+if (Which fzf) {
     Set-PSReadlineKeyHandler -Chord Ctrl+R -ScriptBlock {
         $line = $null
         $cursor = $null
@@ -66,12 +59,10 @@ if (Which fzf)
         $result = Get-Content $file | Select-Object -Unique | fzf
 
         [Microsoft.Powershell.PSConsoleReadline]::RevertLine()
-        if ($LASTEXITCODE)
-        {
+        if ($LASTEXITCODE) {
             [Microsoft.Powershell.PSConsoleReadline]::Insert($line)
         }
-        else
-        {
+        else {
             [Microsoft.Powershell.PSConsoleReadline]::Insert($result)
         }
     }
