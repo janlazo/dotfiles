@@ -52,8 +52,8 @@ if command -v tar > /dev/null 2>&1; then
 fi
 
 if command -v node > /dev/null 2>&1; then
-  [ -d ~/.nvm ] || mkdir ~/.nvm;
-  export NVM_DIR=~/.nvm
+  export NVM_DIR="$HOME/.nvm"
+  [ -d "$NVM_DIR" ] || mkdir "$NVM_DIR"
   [ -f "$NVM_DIR/nvm.sh" ] && alias nvm='unalias nvm && . "$NVM_DIR/nvm.sh" && nvm "$@"'
 fi
 
