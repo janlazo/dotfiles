@@ -54,7 +54,7 @@ fi
 if command -v node > /dev/null 2>&1; then
   [ -d ~/.nvm ] || mkdir ~/.nvm;
   export NVM_DIR=~/.nvm
-  [ -f ~/.nvm/nvm.sh ] && . ~/.nvm/nvm.sh;
+  [ -f "$NVM_DIR/nvm.sh" ] && alias nvm='unalias nvm && . "$NVM_DIR/nvm.sh" && nvm "$@"'
 fi
 
 # Cleanup
