@@ -17,14 +17,10 @@
 
 	# General
 	st = status -s
-	cf = config
 	rb = rebase
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbs = rebase --skip
-	rva = revert --abort
-	rvc = revert --continue
-	rvq = revert --quit
 	pl = pull --rebase
 	df = diff
 	dfc = diff --cached
@@ -43,12 +39,12 @@
 	# Submodules
 	subm = submodule
 	subm-a = submodule add
-	subm-a-1 = submodule add --depth 1
+	subm-a1 = submodule add --depth 1
 	subm-st = submodule status --recursive
 	subm-i = submodule init
 	subm-di = submodule deinit --force
 	subm-up = submodule update --init --recursive
-	subm-up-1 = submodule update --init --recursive --depth 1
+	subm-up1 = submodule update --init --recursive --depth 1
 	subm-up-r = submodule update --init --recursive --remote
 	subm-up-r1 = submodule update --init --recursive --remote --depth 1
 
