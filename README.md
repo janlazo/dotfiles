@@ -8,6 +8,7 @@ Cross-platform
 - [GNU Emacs][gnu-emacs] - .emacs.d/
 - [hyper.js][github-hyper] - win/.hyper.js
 - [micro][github-micro] - unix/.config/micro/
+- [npm][npm-site] - .npmrc
 
 Windows
 - [ConEmu][github-conemu] - win/AppData/Roaming/ConEmu.xml
@@ -44,3 +45,4 @@ limitations under the License.
 [gnu-bash]: https://www.gnu.org/software/bash/
 [gnu-emacs]: https://www.gnu.org/software/emacs/
 [nano-site]: https://www.nano-editor.org/
+[npm-site]: https://www.npmjs.com/
