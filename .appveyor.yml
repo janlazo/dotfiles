@@ -5,3 +5,9 @@ build: off
 
 test_script:
   - ps: Invoke-ScriptAnalyzer -Path win\Documents\WindowsPowershell\Microsoft.PowerShell_profile.ps1 -Settings CodeFormattingStroustrup
+
+notifications:
+  - provider: Email
+    on_build_success: false
+    on_build_failure: false
+    on_build_status_changed: false
