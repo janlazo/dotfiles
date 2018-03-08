@@ -1,0 +1,8 @@
+sudo: false
+language: generic
+
+script:
+  - bash -n unix/.bashrc
+
+notifications:
+  email: false
