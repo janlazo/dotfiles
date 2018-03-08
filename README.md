@@ -1,6 +1,7 @@
 # dotfiles
 
 [![Build Status](https://travis-ci.org/janlazo/dotfiles.svg?branch=master)](https://travis-ci.org/janlazo/dotfiles)
+[![Build status](https://ci.appveyor.com/api/projects/status/xurcugqd2xmhks88?svg=true)](https://ci.appveyor.com/project/janlazo/dotfiles)
 
 Cross-platform
 - [Atom][github-atom] - .atom/
