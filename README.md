@@ -1,5 +1,7 @@
 # dotfiles
 
+[![Build Status](https://travis-ci.org/janlazo/dotfiles.svg?branch=master)](https://travis-ci.org/janlazo/dotfiles)
+
 Cross-platform
 - [Atom][github-atom] - .atom/
 - [GNU Bash][gnu-bash]
