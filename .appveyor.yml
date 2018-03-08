@@ -1,0 +1,5 @@
+install:
+  - ps: Install-Module PSScriptAnalyzer
+
+test_script:
+  - ps: Invoke-ScriptAnalyzer -Path win\Documents\WindowsPowershell\Microsoft.PowerShell_profile.ps1 -Settings CodeFormattingStroustrup
