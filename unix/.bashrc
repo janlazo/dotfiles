@@ -22,7 +22,7 @@ shopt -s histappend      # append to history file, don't overrite
 
 HISTCONTROL=ignoreboth   # no duplicate lines, lines starting with space
 HISTFILESIZE=1000        # max num of lines
-HISTSIZE=100             # max num of commands
+HISTSIZE=1000            # max num of commands
 
 has_color=0
 if [ -t 1 ] && command -v tput > /dev/null 2>&1; then
