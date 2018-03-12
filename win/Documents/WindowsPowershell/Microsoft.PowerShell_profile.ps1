@@ -11,31 +11,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-if (Test-Path "$PSScriptRoot/profile.dll") {
-    Add-Type -Path "$PSScriptRoot/profile.dll"
-}
-elseif (Test-Path "$PSScriptRoot/profile.cs") {
-    Add-Type -Path "$PSScriptRoot/profile.cs"
+& {
+    foreach ($ext in @('dll', 'cs')) {
+        $path = "$PSScriptRoot/profile.$ext"
+        if (Test-Path "$path") {
+            Add-Type -Path "$path"
+            break
+        }
+    }
 }
 
 function Prompt {
-    # Prep
-    $origLastExitCode = $LASTEXITCODE;
+    $curpath = $executionContext.SessionState.Path.CurrentLocation.Path
+    $relpath = $curpath.replace($env:USERPROFILE, '~')
+    $prompt = 'PS' + ('>' * ($nestedPromptLevel + 1)) + ' '
 
-    # Core
-    $curpath = $executionContext.SessionState.Path.CurrentLocation.Path;
-    $homepathRegex = [regex]::Escape($env:USERPROFILE) + '(\\.*)*$';
-    $relpath = $($curpath -replace $homepathRegex, '~$1');
-    Write-Host -ForegroundColor Green -nonewline "[$env:USERNAME]";
-    Write-Host -ForegroundColor Blue             " $relpath";
-
-    # Powershell Prompt Level
-    $prompt = 'PS' + ('>' * ($nestedPromptLevel + 1));
-    Write-Host -ForegroundColor White -nonewline "$prompt";
-
-    # Cleanup
-    $LASTEXITCODE = $origLastExitCode;
-    return ' ';
+    Write-Host -ForegroundColor Green -nonewline "[$env:USERNAME]"
+    Write-Host -ForegroundColor Blue             " $relpath"
+    return $prompt
 }
 
 # Silent wrapper of Get-Command
@@ -56,14 +49,14 @@ function Enter-VS2017 {
 
 # Powershell 3 modules are not backward compatible
 if ($PSVersionTable.PSVersion.Major -lt 3) {
-    return;
+    return
 }
 
 # vi/emacs keybinds
-Import-Module PSReadline;
+Import-Module PSReadline
 Set-PSReadlineOption `
     -EditMode Emacs -BellStyle Visual -ExtraPromptLineCount 1 `
-    -HistoryNoDuplicates -HistorySearchCaseSensitive;
+    -HistoryNoDuplicates -HistorySearchCaseSensitive
 if (Which fzf) {
     Set-PSReadlineKeyHandler -Chord Ctrl+R -ScriptBlock {
         $line = $null
@@ -83,4 +76,4 @@ if (Which fzf) {
 }
 
 # emulate unix programs
-Import-Module Pscx;
+Import-Module Pscx
