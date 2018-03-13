@@ -1,8 +1,16 @@
 sudo: false
 language: generic
 
+addon:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - shellcheck
+
 script:
   - bash -n unix/.bashrc
+  - shellcheck unix/.bashrc
 
 notifications:
   email: false
