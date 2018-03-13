@@ -27,7 +27,7 @@ HISTSIZE=1000            # max num of commands
 has_color=0
 if [ -t 1 ] && command -v tput > /dev/null 2>&1; then
   ncolors=$(tput colors)
-  [ -n "$ncolors" ] && [ $ncolors -ge 8 ] && has_color=1
+  [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ] && has_color=1
   ncolors=
 fi
 

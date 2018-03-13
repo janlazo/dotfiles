@@ -10,7 +10,7 @@ addon:
 
 script:
   - bash -n unix/.bashrc
-  - shellcheck unix/.bashrc
+  - shellcheck -s bash -e SC2142 -e SC2154 unix/.bashrc
 
 notifications:
   email: false
