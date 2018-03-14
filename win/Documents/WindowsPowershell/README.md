@@ -5,3 +5,7 @@
 `Microsoft.PowerShell_profile.ps1` is my `$PROFILE` template.
 
 `profile.cs` is for helper functions that require C# classes. Powershell can compile it on the fly but it can be compiled with  `csc.exe` (requires Visual Studio) to create `profile.dll`.
+
+```dosbatch
+csc.exe /t:library profile.cs
+```
