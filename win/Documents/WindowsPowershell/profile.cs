@@ -17,7 +17,7 @@ public static class Profile
 {
     public static bool IsAdmin()
     {
-        var group = new WindowsPrincipal(WindowsIdentity.GetCurrent());
-        return group.IsInRole(WindowsBuiltInRole.Administrator);
+        var userGroup = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+        return userGroup.IsInRole(WindowsBuiltInRole.Administrator);
     }
 }
