@@ -63,7 +63,7 @@ if (Which fzf) {
         $cursor = $null
         [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref] $line, [ref] $cursor)
 
-        $history = @(Get-Content (Get-PSReadlineOption).HistorySavePath | Select-Object -Unique)
+        $history = @(Get-Content -LiteralPath (Get-PSReadlineOption).HistorySavePath)
         [Array]::reverse($history)
         $result = $history | fzf
         if ($LASTEXITCODE) {
