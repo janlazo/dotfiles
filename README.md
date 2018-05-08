@@ -12,6 +12,8 @@ Cross-platform
 - [hyper.js][github-hyper] - win/.hyper.js
 - [micro][github-micro] - unix/.config/micro/
 - [npm][npm-site] - .npmrc
+- [Vim](https://www.vim.org)
+  - .vim/vimrc (copy of [shared.vim](https://github.com/janlazo/dotvim8/blob/master/shared.vim))
 
 Windows
 - [ConEmu][github-conemu] - win/AppData/Roaming/ConEmu.xml
