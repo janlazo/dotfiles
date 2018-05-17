@@ -46,6 +46,12 @@ if command -v grep > /dev/null 2>&1; then
   [ $has_color -eq 1 ] && alias grep='\grep --color=auto'
 fi
 
+if command -v vim > /dev/null 2>&1; then
+    [ ! -d $HOME/.vim ] && mkdir $HOME/.vim
+    [ ! -f $HOME/.vim/vimrc ] && touch $HOME/.vim/vimrc
+    alias vim="$(command -v vim) -Nu $HOME/.vim/vimrc"
+fi
+
 if command -v pngcrush > /dev/null 2>&1; then
   alias pngcrush.f='\pngcrush --brute -l 9'
 fi
