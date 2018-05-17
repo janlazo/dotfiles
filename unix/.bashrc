@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-[ -z "$PS1" ] && return; # don't do anything if not running interactively
+([ -z "$PS1" ] || [ -z "$HOME" ]) && return;
 
 set -o emacs;            # Force Bash's Emacs Mode
 
@@ -47,8 +47,8 @@ if command -v grep > /dev/null 2>&1; then
 fi
 
 if command -v vim > /dev/null 2>&1; then
-    [ ! -d $HOME/.vim ] && mkdir $HOME/.vim
-    [ ! -f $HOME/.vim/vimrc ] && touch $HOME/.vim/vimrc
+    [ ! -d "$HOME/.vim" ] && mkdir "$HOME/.vim"
+    [ ! -f "$HOME/.vim/vimrc" ] && touch "$HOME/.vim/vimrc"
     alias vim="$(command -v vim) -Nu $HOME/.vim/vimrc"
 fi
 
