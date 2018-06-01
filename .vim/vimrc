@@ -12,43 +12,45 @@
 " See the License for the specific language governing permissions and
 " limitations under the License.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" options are grouped by feature (:h feature-list)
-" foldmarkers group options by version (:h version)
+" Feature/Version checks group options, variables, functions, mappings
+" folds group these checks by version type (ie. tiny,normal,huge)
+" Vim 7.2 (tiny) and Neovim 0.1.6 are the mimimum supported versions
+" `:h version` for feature checks
+" `v:version`  for release,major,minor version as an integer
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fixes
+" General
 set cpoptions-=C cpoptions-=<
 set nomodeline modelines=0
-set autoread fileformats=unix,dos
-set shortmess+=sI
+set shortmess+=s shortmess+=I
+
+" Keys
 set backspace=2 whichwrap=<,>,b,s nrformats-=octal nojoinspaces
 set notimeout ttimeout ttimeoutlen=100
 set keywordprg=:help
+set autoindent shiftround
 
-" Do not create swapfiles.
+" File
+set autoread fileformats=unix,dos
 set noswapfile updatecount=0 directory=
+
+" Do not force a memory flush to speedup manual writes.
 if exists('+swapsync')
   set swapsync=
 endif
-
-" Do not force a flush to speedup manual writes.
 if exists('+fsync')
   set nofsync
 endif
 
-" Consistent Indentation
-set autoindent shiftround
-
-" Line Wrap
-set textwidth=72 formatoptions=l
-
 " UI
-set number
+set number textwidth=72 formatoptions=ql
 set sidescroll=5 nostartofline
 set scrolloff=1 sidescrolloff=1 display=lastline
 set laststatus=2 cmdheight=2 noshowmode
 
 if 1
-  let s:is_gui = has('gui_running') || exists('g:nyaovim_version')
+  let s:is_gui = has('nvim') ?
+  \ (exists('g:nyaovim_version') || exists('g:GtkGuiLoaded')) :
+  \ has('gui_running')
 
   if v:version >= 704
     set formatoptions+=j
@@ -58,7 +60,8 @@ if 1
   endif
 
   if v:version >= 800 || has('nvim-0.1.6')
-    set shortmess+=cF belloff=all
+    set shortmess+=c shortmess+=F
+    set belloff=all
     set nofixendofline
     set list listchars=tab:>\ ,trail:-,nbsp:+
   endif
@@ -109,6 +112,11 @@ if has('windows')
   nnoremap <silent> <Space>v :tabedit $MYVIMRC<CR>
   nnoremap <silent> <Space>gv :tabedit $MYGVIMRC<CR>
 endif
+
+" Moved from normal to tiny version since 8.0.1118
+if has('vertsplit')
+  set splitright
+endif
 " }}}tiny
 " {{{small
 " Moved from normal to small version since 8.0.1129
@@ -119,6 +127,12 @@ if has('cmdline_hist')
 endif
 " }}}small
 " {{{normal
+if has('multi_byte') && !has('nvim')
+  if has('win32') || (has('gui_running') && &encoding ==# 'latin1')
+    set encoding=utf-8
+  endif
+endif
+
 if has('modify_fname')
   let s:base_dir = expand('<sfile>:p:h')
 
@@ -188,6 +202,14 @@ if has('modify_fname')
   endif
 endif
 
+if has('path_extra')
+  set path=.,, define=
+endif
+
+if has('find_in_path')
+  set include= includeexpr=
+endif
+
 if has('linebreak')
   " 3-digit line number in 80 col terminals
   set numberwidth=4 textwidth=76
@@ -221,7 +243,7 @@ if has('statusline')
   " TODO - support low-width screens (add max width, minimize space)
   function! Statusline()
     let lhs = ['%8{"'.get(s:modes, mode(), 'MODE').'"}', '%t [%W%R%M]']
-    let rhs = [&fileformat, '%3l:%-3c']
+    let rhs = [&fileformat, '%4l:%-4c']
     if strlen(&fileencoding)
       call insert(rhs, &fileencoding)
     endif
@@ -302,6 +324,33 @@ if has('syntax')
       unlet s:spelldir
     endif
   endif
+
+  function! s:set_color()
+    let has_tgc = has('nvim') ?
+    \ has('nvim-0.1.6') :
+    \ (!has('win32') || !has('patch-8.0.1531') || has('vcon'))
+    let use_tgc = has('nvim') ?
+    \ has('nvim-0.2.1') :
+    \ (has('patch-8.0.142') && has('patch-8.0.146'))
+    if has('termguicolors') && has_tgc
+      let &termguicolors = use_tgc && &t_Co == 256 && empty($TMUX)
+    endif
+
+    if s:is_gui
+      let colors = ['gruvbox8_soft', 'morning']
+    else
+      let colors = ['torte']
+      if &t_Co == 256
+        call insert(colors, 'jellybeans')
+      endif
+    endif
+    for color in colors
+      execute 'silent! colorscheme' color
+      if get(g:, 'colors_name', 'default') ==# color
+        break
+      endif
+    endfor
+  endfunction
 endif
 
 if has('persistent_undo')
@@ -318,10 +367,6 @@ if has('persistent_undo')
   else
     set undodir=
   endif
-endif
-
-if has('vertsplit')
-  set splitright
 endif
 
 if has('folding')
@@ -374,17 +419,19 @@ if has('win32')
   " ConEmu's prompt is garbled in winpty
   let $PROMPT = '$P$_$G$S'
 
-  " Force xterm rendering in ConEmu for truecolor
-  " Unset ConEmuANSI so that Vim doesn't break in winpty
+  " Force xterm rendering on ConEmu, not :terminal, for truecolor
+  " Detect winpty by checking environment variables for Vim/Neovim server.
   if $ConEmuANSI ==# 'ON'
-    if v:version >= 704 && !has('gui_running') && !has('nvim') && has('builtin_terms')
+    if s:is_gui
+      let $ConEmuANSI = 'OFF'
+    elseif v:version >= 704 && !has('nvim') && has('builtin_terms') &&
+      \ empty($VIM_SERVERNAME) && empty($NVIM_LISTEN_ADDRESS)
       set term=xterm t_Co=256
       let &t_AB = "\e[48;5;%dm"
       let &t_AF = "\e[38;5;%dm"
       let &t_kb = nr2char(127)
       let &t_kD = "^[[3~"
     endif
-    let $ConEmuANSI = ''
   endif
 endif
 " }}}big
@@ -395,11 +442,13 @@ if has('autocmd')
   let g:vimsyn_embed = ''
   let g:vim_indent_cont = 0
 
-  " Tex
-  let g:tex_flavor = 'latex'
-
-  " Netrw
-  let g:netrw_home = s:base_dir
+  " standard-plugin
+  let g:loaded_getscriptPlugin = 1
+  let g:loaded_logiPat = 1
+  let g:loaded_vimballPlugin = 1
+  if exists('s:base_dir')
+    let g:netrw_home = s:base_dir
+  endif
   let g:netrw_dirhistmax = 0
   let g:netrw_banner = 0
 
@@ -410,39 +459,23 @@ if has('autocmd')
   let g:html_indent_script1 = "auto"
   let g:html_indent_style1 = "auto"
 
+  " Tex
+  let g:tex_flavor = 'latex'
+
+  augroup vimrc
+    autocmd!
+  augroup END
+
   " {{{vim-plug
   let g:plug_window = 'tabnew'
   silent! call plug#begin(expand(s:base_dir . '/bundle'))
   if exists('g:loaded_plug')
-    function! s:set_color()
-      let has_tgc = has('nvim') ?
-      \ has('nvim-0.1.6') :
-      \ (!has('win32') || !has('patch-8.0.1531') || has('vcon'))
-      let use_tgc = has('nvim') ?
-      \ has('nvim-0.2.1') :
-      \ (has('patch-8.0.142') && has('patch-8.0.146'))
-      if has('termguicolors') && has_tgc
-        let &termguicolors = use_tgc && &t_Co == 256 && empty($TMUX)
-      endif
-
-      if has('syntax')
-        let cur_color = get(g:, 'colors_name', 'default')
-        if (has('gui_running') || &t_Co == 256) && cur_color !=# 'jellybeans'
-          silent! colorscheme jellybeans
-        endif
-        let cur_color = get(g:, 'colors_name', 'default')
-        if cur_color ==# 'default'
-          silent! colorscheme torte
-        endif
-      endif
-    endfunction
-
     let s:plug_disable = {'on': []}
     " {{{plug-core
-    let s:base_cond = has('nvim') ? has('nvim-0.3') : v:version >= 800
+    let s:base_cond = v:version >= 800 && has('reltime')
     call plug#('andymass/vim-matchup', has('syntax') && s:base_cond ? {} : s:plug_disable)
       let g:matchup_matchparen_status_offscreen = 0
-      let g:matchup_matchparen_deferred = s:base_cond
+      let g:matchup_matchparen_deferred = s:base_cond && (!has('nvim') || has('nvim-0.3'))
       let g:matchup_matchpref_html_nolists = 1
 
       if has('syntax') && !s:base_cond && !has('nvim')
@@ -502,7 +535,7 @@ if has('autocmd')
     Plug 'Shougo/neco-vim'
     call plug#('prabirshrestha/asyncomplete-necovim.vim', s:base_cond ? {} : s:plug_disable)
       if s:base_cond
-        autocmd User asyncomplete_setup
+        autocmd vimrc User asyncomplete_setup
         \ call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
         \ 'name': 'necovim',
         \ 'whitelist': ['vim'],
@@ -515,6 +548,7 @@ if has('autocmd')
       let g:jellybeans_use_lowcolor_black = 0
       let g:jellybeans_use_term_italics = 0
       let g:jellybeans_use_gui_italics = 0
+    call plug#('lifepillar/vim-gruvbox8', v:version >= 800 ? {} : s:plug_disable)
     " }}}plug-core
     " {{{plug-python
     let s:base_cond = has('python') || has('python3')
@@ -568,17 +602,35 @@ if has('autocmd')
     silent! call plug#end()
 
     silent! call echodoc#enable()
-    if has('nvim')
-      autocmd VimEnter * call s:set_color()
-    else
+  endif
+  " }}}vim-plug
+
+  if has('nvim')
+    function! s:vim_enter()
+      let s:is_gui = s:is_gui || (exists('g:GuiLoaded') && has('nvim-0.3'))
+      if s:is_gui
+        set mouse=a
+        if $ConEmuANSI ==# 'ON'
+          let $ConEmuANSI = 'OFF'
+        endif
+      endif
+
+      call s:set_color()
+    endfunction
+    autocmd vimrc VimEnter * call s:vim_enter()
+  else
+    if has('gui_running')
+      set background=light
+      behave xterm
+      let &columns = 81 + &numberwidth
+    endif
+    if has('syntax')
       call s:set_color()
     endif
   endif
-  " }}}vim-plug
 endif
 
 if 1
-  unlet s:is_gui
   if exists('s:base_dir')
     unlet s:base_dir
   endif
