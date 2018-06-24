@@ -76,5 +76,7 @@ if command -v node > /dev/null 2>&1; then
   [ -f "$NVM_DIR/nvm.sh" ] && alias nvm='unalias nvm && . "$NVM_DIR/nvm.sh" && nvm "$@"'
 fi
 
+[ -f "$HOME/.fzf.bash" ] && . "$HOME/.fzf.bash"
+
 # Cleanup
 has_color=
