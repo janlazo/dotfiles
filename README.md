@@ -4,12 +4,10 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/xurcugqd2xmhks88?svg=true)](https://ci.appveyor.com/project/janlazo/dotfiles)
 
 Cross-platform
-- [Atom][github-atom] - .atom/
 - [GNU Bash][gnu-bash]
   - unix/.bashrc
   - unix/.bash_profile
 - [GNU Emacs][gnu-emacs] - .emacs.d/
-- [hyper.js][github-hyper] - win/.hyper.js
 - [micro][github-micro] - unix/.config/micro/
 - [npm][npm-site] - .npmrc
 - [Vim](https://www.vim.org)
@@ -28,9 +26,7 @@ Unix
 
 Apache-2.0
 
-[github-atom]: https://github.com/atom/atom
 [github-conemu]: https://github.com/Maximus5/ConEmu
-[github-hyper]: https://github.com/zeit/hyper
 [github-micro]: https://github.com/zyedidia/micro
 [github-powershell]:  https://github.com/PowerShell/PowerShell
 [github-tmux]: https://github.com/tmux/tmux
