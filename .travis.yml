@@ -8,9 +8,7 @@ addon:
     packages:
       - shellcheck
 
-script:
-  - bash -n unix/.bashrc
-  - shellcheck -s bash -e SC2142 -e SC2154 -e SC2139 unix/.bashrc
+script: ci/test.sh
 
 notifications:
   email: false
