@@ -21,6 +21,7 @@ Windows
 
 Unix
 - [nano][nano-site] - unix/.nanorc
+- sakura - unix/.config/sakura/sakura.conf
 - [tmux][github-tmux] - unix/.tmux.conf
 
 ## LICENSE
