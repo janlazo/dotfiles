@@ -1,7 +1,40 @@
-[push]
-	default = current
-[credential]
-	modalPrompt = never
+[alias]
+	# General
+	br = branch
+	co = checkout
+	clo = clone
+	cm = commit
+	df = diff
+	dfc = diff --cached
+	l = log --graph --decorate --oneline
+	la = log --graph --decorate --oneline --all
+	mg = merge
+	ph = push
+	pha = push --all
+	phf = push --force-with-lease
+	phfa = push --force-with-lease --all
+	pl = pull --rebase
+	rb = rebase
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbs = rebase --skip
+	fuck = reset HEAD --hard
+	st = status -s
+
+	# Submodules
+	subm = submodule
+	subm-a = submodule add
+	subm-di = submodule deinit --force
+	subm-i = submodule init
+	subm-st = submodule status --recursive
+	subm-up = submodule update --init --recursive
+	subm-up-r = submodule update --init --recursive --remote
+
+	# SVN
+	s-br = svn branch
+	s-clo = svn clone
+	s-cm = svn dcommit
+	s-rb = svn rebase
 [core]
 	editor = vim
 	autocrlf = input
@@ -9,49 +42,11 @@
 	askPass = ""
 [color]
 	ui = true
-[url "https://github.com/"]
-	insteadOf = gh:
-[alias]
-	# Fix the repo
-	fuck = reset HEAD --hard
-
-	# General
-	st = status -s
-	rb = rebase
-	rba = rebase --abort
-	rbc = rebase --continue
-	rbs = rebase --skip
-	pl = pull --rebase
-	df = diff
-	dfc = diff --cached
-	co = checkout
-	ph = push
-	pha = push --all
-	phf = push --force-with-lease
-	phfa = push --force-with-lease --all
-	mg = merge
-	br = branch
-	cm = commit
-	clo = clone
-	l = log --graph --decorate --oneline
-	la = log --graph --decorate --oneline --all
-
-	# Submodules
-	subm = submodule
-	subm-a = submodule add
-	subm-a1 = submodule add --depth 1
-	subm-st = submodule status --recursive
-	subm-i = submodule init
-	subm-di = submodule deinit --force
-	subm-up = submodule update --init --recursive
-	subm-up1 = submodule update --init --recursive --depth 1
-	subm-up-r = submodule update --init --recursive --remote
-	subm-up-r1 = submodule update --init --recursive --remote --depth 1
-
-	# SVN
-	s-rb = svn rebase
-	s-br = svn branch
-	s-cm = svn dcommit
-	s-clo = svn clone
+[credential]
+	modalPrompt = never
+[push]
+	default = current
 [status]
 	submodulesummary = true
+[url "https://github.com/"]
+	insteadOf = gh:
