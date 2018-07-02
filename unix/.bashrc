@@ -70,13 +70,12 @@ if command -v tar > /dev/null 2>&1; then
   alias tar.xz='tar -xz -f';          # tar.xz <archive.tar.gz>
 fi
 
-if command -v node > /dev/null 2>&1; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -d "$NVM_DIR" ] || mkdir "$NVM_DIR"
-  [ -f "$NVM_DIR/nvm.sh" ] && alias nvm='unalias nvm && . "$NVM_DIR/nvm.sh" && nvm "$@"'
-fi
+export NVM_DIR="$HOME/.nvm"
+[ -d "$NVM_DIR" ] || mkdir "$NVM_DIR"
+[ -f "$NVM_DIR/nvm.sh" ] && alias nvm='unalias nvm && \. "$NVM_DIR/nvm.sh" && nvm "$@"'
+[ -f "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-[ -f "$HOME/.fzf.bash" ] && . "$HOME/.fzf.bash"
+[ -f "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
 
 # Cleanup
 has_color=
