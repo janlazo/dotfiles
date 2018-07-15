@@ -70,6 +70,13 @@ if command -v tar > /dev/null 2>&1; then
   alias tar.xz='tar -xz -f';          # tar.xz <archive.tar.gz>
 fi
 
+if command -v youtube-dl > /dev/null 2>&1; then
+    [ -d "$HOME/Music" ] || mkdir "$HOME/Music"
+    alias ytdl.m='\youtube-dl -f bestaudio -o "$HOME/Music/%(title)s.%(ext)s"'
+    [ -d "$HOME/Videos" ] || mkdir "$HOME/Videos"
+    alias ytdl.v='\youtube-dl -o "$HOME/Videos/%(title)s.%(ext)s"'
+fi
+
 export NVM_DIR="$HOME/.nvm"
 [ -d "$NVM_DIR" ] || mkdir "$NVM_DIR"
 [ -f "$NVM_DIR/nvm.sh" ] && alias nvm='unalias nvm && \. "$NVM_DIR/nvm.sh" && nvm "$@"'

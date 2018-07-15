@@ -12,6 +12,7 @@ Cross-platform
 - [npm][npm-site] - .npmrc
 - [Vim](https://www.vim.org)
   - .vim/vimrc (copy of [shared.vim](https://github.com/janlazo/dotvim8/blob/master/shared.vim))
+- [youtube-dl][github-youtube-dl] - unix/.config/youtube-dl/config
 
 Windows
 - [ConEmu][github-conemu] - win/AppData/Roaming/ConEmu.xml
@@ -30,6 +31,7 @@ Apache-2.0
 [github-micro]: https://github.com/zyedidia/micro
 [github-powershell]:  https://github.com/PowerShell/PowerShell
 [github-tmux]: https://github.com/tmux/tmux
+[github-youtube-dl]: https://github.com/rg3/youtube-dl
 [gnu-bash]: https://www.gnu.org/software/bash/
 [gnu-emacs]: https://www.gnu.org/software/emacs/
 [nano-site]: https://www.nano-editor.org/

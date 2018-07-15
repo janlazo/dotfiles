@@ -1,0 +1,15 @@
+# youtube-dl version 2018.07.10
+# General
+--abort-on-error
+
+# Download
+--abort-on-unavailable-fragment
+
+# Filesystem
+--restrict-filenames
+--no-overwrites
+--no-continue
+
+# Format
+--prefer-free-formats
+--youtube-skip-dash-manifest
