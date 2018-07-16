@@ -4,14 +4,16 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/xurcugqd2xmhks88?svg=true)](https://ci.appveyor.com/project/janlazo/dotfiles)
 
 Cross-platform
+- [git](https://git-scm.com/)
+    - .gitconfig
 - [GNU Bash][gnu-bash]
-  - unix/.bashrc
-  - unix/.bash_profile
+    - unix/.bashrc
+    - unix/.bash_profile
 - [GNU Emacs][gnu-emacs] - .emacs.d/
 - [micro][github-micro] - unix/.config/micro/
 - [npm][npm-site] - .npmrc
 - [Vim](https://www.vim.org)
-  - .vim/vimrc (copy of [shared.vim](https://github.com/janlazo/dotvim8/blob/master/shared.vim))
+    - .vim/vimrc (copy of [shared.vim](https://github.com/janlazo/dotvim8/blob/master/shared.vim))
 - [youtube-dl][github-youtube-dl] - unix/.config/youtube-dl/config
 
 Windows
