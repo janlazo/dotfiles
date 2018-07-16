@@ -44,6 +44,8 @@
 	ui = true
 [credential]
 	modalPrompt = never
+[grep]
+	lineNumber = true
 [push]
 	default = current
 [status]
