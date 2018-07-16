@@ -72,9 +72,9 @@ fi
 
 if command -v youtube-dl > /dev/null 2>&1; then
     [ -d "$HOME/Music" ] || mkdir "$HOME/Music"
-    alias ytdl.m='\youtube-dl -f bestaudio -o "$HOME/Music/%(title)s.%(ext)s"'
+    alias ytdl.m='\youtube-dl -f "bestaudio[ext=webm]" -o "$HOME/Music/%(title)s.%(ext)s"'
     [ -d "$HOME/Videos" ] || mkdir "$HOME/Videos"
-    alias ytdl.v='\youtube-dl -o "$HOME/Videos/%(title)s.%(ext)s"'
+    alias ytdl.v='\youtube-dl -f "best[ext=webm]" -o "$HOME/Videos/%(title)s.%(ext)s"'
 fi
 
 export NVM_DIR="$HOME/.nvm"

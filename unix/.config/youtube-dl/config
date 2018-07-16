@@ -11,5 +11,4 @@
 --no-continue
 
 # Format
---prefer-free-formats
 --youtube-skip-dash-manifest
