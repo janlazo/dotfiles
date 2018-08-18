@@ -55,7 +55,7 @@ fi
 if command -v nvim > /dev/null 2>&1; then
     [ -d "$HOME/.config/nvim" ] || mkdir "$HOME/.config/nvim"
     [ -f "$HOME/.config/nvim/init.vim" ] || touch "$HOME/.config/nvim/init.vim"
-    alias nvim="$(command -v nvim) -Nu $HOME/.config/nvim/init.vim"
+    alias nvim="$(command -v nvim) -u $HOME/.config/nvim/init.vim"
 fi
 
 if command -v pngcrush > /dev/null 2>&1; then
