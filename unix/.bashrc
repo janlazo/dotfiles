@@ -47,15 +47,20 @@ if command -v grep > /dev/null 2>&1; then
 fi
 
 if command -v vim > /dev/null 2>&1; then
-    [ -d "$HOME/.vim" ] || mkdir "$HOME/.vim"
-    [ -f "$HOME/.vim/vimrc" ] || touch "$HOME/.vim/vimrc"
-    alias vim="$(command -v vim) -Nu $HOME/.vim/vimrc"
+  [ -d "$HOME/.vim" ] || mkdir "$HOME/.vim"
+  [ -f "$HOME/.vim/vimrc" ] || touch "$HOME/.vim/vimrc"
+  alias vim="$(command -v vim) -Nu $HOME/.vim/vimrc"
+
+  if command -v gvim > /dev/null 2>&1; then
+    [ -f "$HOME/.vim/gvimrc" ] || touch "$HOME/.vim/gvimrc"
+    alias gvim="$(command -v gvim) -Nu $HOME/.vim/vimrc -U $HOME/.vim/gvimrc"
+  fi
 fi
 
 if command -v nvim > /dev/null 2>&1; then
-    [ -d "$HOME/.config/nvim" ] || mkdir "$HOME/.config/nvim"
-    [ -f "$HOME/.config/nvim/init.vim" ] || touch "$HOME/.config/nvim/init.vim"
-    alias nvim="$(command -v nvim) -u $HOME/.config/nvim/init.vim"
+  [ -d "$HOME/.config/nvim" ] || mkdir "$HOME/.config/nvim"
+  [ -f "$HOME/.config/nvim/init.vim" ] || touch "$HOME/.config/nvim/init.vim"
+  alias nvim="$(command -v nvim) -u $HOME/.config/nvim/init.vim"
 fi
 
 if command -v pngcrush > /dev/null 2>&1; then
