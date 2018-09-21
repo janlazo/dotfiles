@@ -23,6 +23,7 @@ Windows
 Unix
 - [nano][nano-site] - unix/.nanorc
 - sakura - unix/.config/sakura/sakura.conf
+- [tilda][github-tilda] - unix/.config/tilda/config_0
 - [tmux][github-tmux] - unix/.tmux.conf
 
 ## LICENSE
@@ -32,6 +33,7 @@ Apache-2.0
 [github-conemu]: https://github.com/Maximus5/ConEmu
 [github-micro]: https://github.com/zyedidia/micro
 [github-powershell]:  https://github.com/PowerShell/PowerShell
+[github-tilda]: https://github.com/lanoxx/tilda
 [github-tmux]: https://github.com/tmux/tmux
 [github-youtube-dl]: https://github.com/rg3/youtube-dl
 [gnu-bash]: https://www.gnu.org/software/bash/
