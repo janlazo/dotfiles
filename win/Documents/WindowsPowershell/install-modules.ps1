@@ -1,9 +1,7 @@
-$all_modules = @('PSReadline', 'Pscx')
-
-foreach ($module in $all_modules)
-{
-    if ($module.length -gt 0)
-    {
-        Install-Module -Force -Scope CurrentUser -Name $module
-    }
+if ($PSVersionTable.PSVersion.Major -lt 5) {
+    return
 }
+@('PSReadline', 'Pscx').ForEach({
+    Install-Module -Force -Scope CurrentUser -SkipPublisherCheck -AllowClobber `
+        -Name $_
+})

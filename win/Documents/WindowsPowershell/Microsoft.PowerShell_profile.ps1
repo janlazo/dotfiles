@@ -49,8 +49,7 @@ function Enter-VS2017 {
     cmd.exe /k set '"VSCMD_START_DIR=%CD%"' '&' "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
 }
 
-# Powershell 3 modules are not backward compatible
-if ($PSVersionTable.PSVersion.Major -lt 3) {
+if ($PSVersionTable.PSVersion.Major -lt 5) {
     return
 }
 

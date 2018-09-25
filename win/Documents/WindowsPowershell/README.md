@@ -1,11 +1,16 @@
-`setup.ps1` allows Powershell to source `$PROFILE` (if it exists) and install Powershell modules from [Powershell Gallery](https://www.powershellgallery.com/).
+`Microsoft.PowerShell_profile.ps1` is the user's `$PROFILE`.
 
-`install-modules.ps1` installs Powershell modules that I need for my `$PROFILE`.
+`setup.ps1` allows Powershell to source `$PROFILE` on startup
+and install modules from [Powershell Gallery](https://www.powershellgallery.com/).
 
-`Microsoft.PowerShell_profile.ps1` is my `$PROFILE` template.
+`install-modules.ps1` installs modules, imported in `$PROFILE`.
 
-`profile.cs` is for helper functions that require C# classes. Powershell can compile it on the fly but it can be compiled with  `csc.exe` (requires Visual Studio) to create `profile.dll`.
+`profile.cs` is for C# helper functions that Powershell can compile on the fly.
+Pre-compile it with `csc.exe` (requires Visual Studio).
+
 
 ```dosbatch
 csc.exe /t:library profile.cs
 ```
+
+Assume that all code in this directory require Powershell 5+.
