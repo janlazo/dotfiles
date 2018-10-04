@@ -1,4 +1,4 @@
-" Copyright 2018 Jan Edmund Doroin Lazo
+" Copyright 2017 Jan Edmund Doroin Lazo
 "
 " Licensed under the Apache License, Version 2.0 (the "License");
 " you may not use this file except in compliance with the License.
@@ -12,11 +12,11 @@
 " See the License for the specific language governing permissions and
 " limitations under the License.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Feature/Version checks group options, variables, functions, mappings
-" folds group these checks by version type (ie. tiny,normal,huge)
-" Vim 7.2 (tiny) and Neovim 0.1.6 are the mimimum supported versions
-" `:h version` for feature checks
-" `v:version`  for release,major,minor version as an integer
+" Feature/Version checks group options, variables, functions, mappings.
+" Folds group these checks by version type (ie. tiny,normal,huge).
+" Vim 7.2 (tiny) and Neovim 0.1.6 are the mimimum supported versions.
+" See `:h version` for feature checks.
+" Check `v:version` for release + major version as an integer.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 set cpoptions-=C cpoptions-=<
@@ -30,7 +30,7 @@ set keywordprg=:help
 set autoindent shiftround
 
 " File
-set autoread fileformats=unix,dos
+set autoread fileformats=unix,dos suffixes=
 set noswapfile updatecount=0 directory=
 
 " Do not force a memory flush to speedup manual writes.
@@ -49,7 +49,9 @@ set laststatus=2 cmdheight=2 noshowmode
 
 if 1
   let s:is_gui = has('nvim') ?
-  \ (exists('g:nyaovim_version') || exists('g:GtkGuiLoaded')) :
+  \ (exists('g:nyaovim_version') ||
+    \ exists('g:GtkGuiLoaded') ||
+    \ exists('g:gui_oni')) :
   \ has('gui_running')
 
   if v:version >= 704
@@ -69,7 +71,7 @@ if 1
   " Compare 2 version strings, both in semver format.
   " If a >  b, return 1.
   " If a == b, return 0.
-  " If a <  b, return -1
+  " If a <  b, return -1.
   function! CompareSemver(a, b)
     let a = split(a:a, '\.', 0)
     let b = split(a:b, '\.', 0)
@@ -85,10 +87,32 @@ if 1
     return 0
   endfunction
 
-  " Q defaults to Ex mode but I don't use it
-  " $VIMRUNTIME/defaults.vim remaps Q to gq but I don't format comments
-  " Remap it to redraw the screen
+  " Q defaults to Ex mode but I don't use it.
+  " $VIMRUNTIME/defaults.vim remaps Q to gq but I don't format comments.
+  " Remap it to redraw the screen.
   nnoremap <silent> Q :redraw!<CR>
+endif
+
+if has('win32')
+  " cmd.exe uses %PROMPT% to set its prompt.
+  " Default prompt is not user-friendly.
+  " ConEmu's prompt is garbled in winpty.
+  let $PROMPT = '$P$_$G$S'
+
+  " Force xterm rendering on ConEmu, not :terminal, for truecolor.
+  " Detect winpty by checking environment variables for Vim/Neovim server.
+  if $ConEmuANSI ==# 'ON'
+    if s:is_gui
+      let $ConEmuANSI = 'OFF'
+    elseif v:version >= 704 && !has('nvim') && has('builtin_terms') &&
+      \ empty($VIM_SERVERNAME) && empty($NVIM_LISTEN_ADDRESS)
+      set term=xterm t_Co=256
+      let &t_AB = "\e[48;5;%dm"
+      let &t_AF = "\e[38;5;%dm"
+      let &t_kb = nr2char(127)
+      let &t_kD = "^[[3~"
+    endif
+  endif
 endif
 
 " {{{tiny
@@ -107,10 +131,6 @@ if has('windows')
     call winrestview(cur_view)
   endfunction
   nnoremap <silent> <Space>rs :call <SID>remove_trailing_spaces()<CR>
-
-  " open vimrc, gvimrc, or init.vim in new tab
-  nnoremap <silent> <Space>v :tabedit $MYVIMRC<CR>
-  nnoremap <silent> <Space>gv :tabedit $MYGVIMRC<CR>
 endif
 
 " Moved from normal to tiny version since 8.0.1118
@@ -136,7 +156,6 @@ endif
 if has('modify_fname')
   let s:base_dir = expand('<sfile>:p:h')
 
-  " TODO - set shellpipe (depends on +quickfix)
   function! s:set_shell(shell)
     if !executable(a:shell)
       echoerr a:shell 'is not executable'
@@ -148,6 +167,9 @@ if has('modify_fname')
     if shell ==# 'cmd.exe'
       let &shell = a:shell
       let &shellredir = '>%s 2>&1'
+      if has('quickfix')
+        let &shellpipe = &shellredir
+      endif
       set shellquote=
 
       if has('nvim')
@@ -167,6 +189,9 @@ if has('modify_fname')
       let &shellcmdflag = '-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command'
       set shellxescape=
       let &shellredir = '>'
+      if has('quickfix')
+        let &shellpipe = '|'
+      endif
 
       if has('nvim')
         set shellxquote=
@@ -179,12 +204,18 @@ if has('modify_fname')
       let &shell = a:shell
       let &shellcmdflag = 'bash --login -c'
       let &shellredir = '>%s 2>&1'
+      if has('quickfix')
+        let &shellpipe = '2>&1 | tee'
+      endif
       let &shellxquote = '"'
       set shellxescape= shellquote=
     elseif shell =~# '^sh' || shell =~# '^bash'
       let &shell = a:shell
       set shellcmdflag=-c shellquote=
       let &shellredir = '>%s 2>&1'
+      if has('quickfix')
+        let &shellpipe = '2>&1 | tee'
+      endif
 
       if v:version >= 704
         set shellxescape=
@@ -256,8 +287,8 @@ if has('statusline')
   set statusline=%!Statusline()
 endif
 
-" highlight matches, quick-jump to nearest
 if has('extra_search') && has('reltime')
+  " highlight matches, quick-jump to nearest
   set hlsearch incsearch
 
   if v:version >= 704
@@ -265,8 +296,8 @@ if has('extra_search') && has('reltime')
   endif
 endif
 
-" Display hints, complete with selection via tab
 if has('wildmenu')
+  " Display hints, complete with selection via tab
   set wildmenu wildmode=longest:full,full
 endif
 
@@ -314,9 +345,9 @@ if has('syntax')
     endif
 
     if has('win32') && has('nvim') && !has('nvim-0.2.1') && !has('patch-8.0.1378')
-      " Neovim uses hardcoded XDG directories on Windows but XDG is for Linux.
-      " Redefine spellfile#WritableSpellDir() to point here
-      " Patch 8.0.1378 prevents autoloaded function definition in $MYVIMRC
+      " Neovim uses hardcoded XDG paths on Windows but XDG is for Linux.
+      " Redefine spellfile#WritableSpellDir() to point here.
+      " Patch 8.0.1378 prevents autoloaded function definition.
       function! spellfile#WritableSpellDir()
         return s:spelldir
       endfunction
@@ -354,23 +385,24 @@ if has('syntax')
 endif
 
 if has('persistent_undo')
-  set noundofile
-
   if exists('s:base_dir')
     let &undodir = expand(s:base_dir . '/.undodir')
 
     if !isdirectory(&undodir)
       call mkdir(&undodir, 'p')
     endif
-
-    set undofile
   else
-    set undodir=
+    set noundofile undodir=
   endif
+endif
+
+if has('comments')
+  set comments=
 endif
 
 if has('folding')
   set nofoldenable
+  set commentstring=
 endif
 
 if has('viminfo')
@@ -412,28 +444,6 @@ if has('langmap')
     set nolangremap
   endif
 endif
-
-if has('win32')
-  " cmd.exe uses %PROMPT% to set its prompt
-  " default prompt is not user-friendly
-  " ConEmu's prompt is garbled in winpty
-  let $PROMPT = '$P$_$G$S'
-
-  " Force xterm rendering on ConEmu, not :terminal, for truecolor
-  " Detect winpty by checking environment variables for Vim/Neovim server.
-  if $ConEmuANSI ==# 'ON'
-    if s:is_gui
-      let $ConEmuANSI = 'OFF'
-    elseif v:version >= 704 && !has('nvim') && has('builtin_terms') &&
-      \ empty($VIM_SERVERNAME) && empty($NVIM_LISTEN_ADDRESS)
-      set term=xterm t_Co=256
-      let &t_AB = "\e[48;5;%dm"
-      let &t_AF = "\e[38;5;%dm"
-      let &t_kb = nr2char(127)
-      let &t_kD = "^[[3~"
-    endif
-  endif
-endif
 " }}}big
 
 " Moved from normal to tiny version since 8.0.1564
@@ -471,16 +481,17 @@ if has('autocmd')
   silent! call plug#begin(expand(s:base_dir . '/bundle'))
   if exists('g:loaded_plug')
     let s:plug_disable = {'on': []}
+    let s:base_cond = 1
     " {{{plug-core
-    let s:base_cond = v:version >= 800 && has('reltime')
-    call plug#('andymass/vim-matchup', has('syntax') && s:base_cond ? {} : s:plug_disable)
+    let s:base_cond = v:version >= 800 && has('syntax') && has('reltime')
+    call plug#('andymass/vim-matchup', s:base_cond ? {} : s:plug_disable)
+    if s:base_cond
       let g:matchup_matchparen_status_offscreen = 0
-      let g:matchup_matchparen_deferred = s:base_cond && (!has('nvim') || has('nvim-0.3'))
+      let g:matchup_matchparen_deferred = !has('nvim') || has('nvim-0.3')
       let g:matchup_matchpref_html_nolists = 1
-
-      if has('syntax') && !s:base_cond && !has('nvim')
-        runtime! macros/matchit.vim
-      endif
+    elseif has('syntax') && !has('nvim')
+      runtime! macros/matchit.vim
+    endif
     Plug 'tpope/vim-scriptease'
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-surround'
@@ -527,21 +538,21 @@ if has('autocmd')
     \ } : s:plug_disable)
     let s:base_cond = has('timers')
     call plug#('prabirshrestha/asyncomplete.vim', s:base_cond ? {} : s:plug_disable)
-      if s:base_cond
-        inoremap <silent> <expr> <TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-        inoremap <silent> <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-        inoremap <silent> <expr> <CR>    <C-R>=(pumvisible() ? "\<C-y>" : '')<CR><CR>
-      endif
+    if s:base_cond
+      inoremap <silent> <expr> <TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+      inoremap <silent> <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+      inoremap <silent> <expr> <CR>    <C-R>=(pumvisible() ? "\<C-y>" : '')<CR><CR>
+    endif
     Plug 'Shougo/neco-vim'
     call plug#('prabirshrestha/asyncomplete-necovim.vim', s:base_cond ? {} : s:plug_disable)
-      if s:base_cond
-        autocmd vimrc User asyncomplete_setup
-        \ call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-        \ 'name': 'necovim',
-        \ 'whitelist': ['vim'],
-        \ 'completor': function('asyncomplete#sources#necovim#completor')
-        \ }))
-      endif
+    if s:base_cond
+      autocmd vimrc User asyncomplete_setup
+      \ call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+      \ 'name': 'necovim',
+      \ 'whitelist': ['vim'],
+      \ 'completor': function('asyncomplete#sources#necovim#completor')
+      \ }))
+    endif
 
     Plug 'nanotech/jellybeans.vim'
       " Windows' default terminal doesn't use ANSI in 8-16 color terminals
@@ -553,16 +564,18 @@ if has('autocmd')
     " {{{plug-python
     let s:base_cond = has('python') || has('python3')
     call plug#('editorconfig/editorconfig-vim', s:base_cond ? {} : s:plug_disable)
+    if s:base_cond
       let g:EditorConfig_preserve_formatoptions = 1
       let g:EditorConfig_max_line_indicator = 'none'
       let g:EditorConfig_exclude_patterns = ['scp://.*', 'fugitive://.*']
+    endif
     " }}}plug-python
     " {{{plug-ft
     " Vim
     Plug 'junegunn/vader.vim'
 
     " Shell
-    Plug 'keith/tmux.vim'
+    Plug 'ericpruitt/tmux.vim', {'rtp': 'vim'}
     Plug 'PProvost/vim-ps1'
 
     " Document
@@ -574,7 +587,7 @@ if has('autocmd')
     " Web
     Plug 'othree/html5.vim'
     Plug 'ap/vim-css-color'
-    Plug 'hail2u/vim-css3-syntax'
+    Plug 'JulesWang/css.vim'
     Plug 'othree/csscomplete.vim'
     Plug 'othree/yajs.vim'
     Plug 'othree/es.next.syntax.vim'
