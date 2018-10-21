@@ -1,14 +1,21 @@
 # youtube-dl version 2018.07.10
+# https://github.com/rg3/youtube-dl/blob/master/README.md
 # General
 --abort-on-error
+--default-search error
+--no-color
 
 # Download
 --abort-on-unavailable-fragment
 
 # Filesystem
---restrict-filenames
---no-overwrites
+--no-cache-dir
 --no-continue
+--no-overwrites
+--restrict-filenames
 
-# Format
+# Video Format
 --youtube-skip-dash-manifest
+
+# Video Selection
+--no-playlist
