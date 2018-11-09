@@ -94,12 +94,7 @@ fi
 
 export NVM_DIR="$HOME/.nvm"
 test -d "$NVM_DIR" || mkdir "$NVM_DIR"
-# autoload nvm.sh for faster startup
-test -f "$NVM_DIR/nvm.sh" && nvm() {
-  unset -f nvm
-  . "$NVM_DIR/nvm.sh"
-  nvm "$@"
-}
+test -f "$NVM_DIR/nvm.sh" && \. "$NVM_DIR/nvm.sh" --no-use
 test -f "$NVM_DIR/bash_completion" && \. "$NVM_DIR/bash_completion"
 test -f "$HOME/.fzf.bash" && \. "$HOME/.fzf.bash"
 
