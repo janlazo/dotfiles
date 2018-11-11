@@ -37,14 +37,22 @@ fi
 
 unalias -a
 
-if command -v ls > /dev/null 2>&1; then
-  test $has_color -eq 1 && alias ls="$(command -v ls) --color=auto"
-  alias ls.v='ls -x -hks -bF --group-directories-first'
-fi
+test $has_color -eq 1 && alias ls="$(command -v ls) --color=auto"
+alias ls.v='ls -x -hks -bF --group-directories-first'
 
-if command -v grep > /dev/null 2>&1; then
-  test $has_color -eq 1 && alias grep="$(command -v grep) --color=auto"
-fi
+test $has_color -eq 1 && alias grep="$(command -v grep) --color=auto"
+
+alias tar="$(command -v tar) -v --totals --block-number"
+# Create
+# tar.c  <archive.tar>    <files>
+# tar.cz <archive.tar.gz> <files>
+alias tar.c='tar -c --verify -f'
+alias tar.cz='tar -cz -f'
+# Extract
+# tar.x  <archive.tar>
+# tar.xz <archive.tar.gz>
+alias tar.x='tar -x -f'
+alias tar.xz='tar -xz -f'
 
 if command -v vim > /dev/null 2>&1; then
   test -d "$HOME/.vim" || mkdir "$HOME/.vim"
@@ -71,20 +79,6 @@ if command -v desmume > /dev/null 2>&1; then
   alias desmume.jit='desmume --cpu-mode=1'
 fi
 
-if command -v tar > /dev/null 2>&1; then
-  alias tar="$(command -v tar) -v --totals --block-number"
-  # Create
-  # tar.c  <archive.tar>    <files>
-  alias tar.c='tar -c --verify -f'
-  # tar.cz <archive.tar.gz> <files>
-  alias tar.cz='tar -cz -f'
-  # Extract
-  # tar.x  <archive.tar>
-  alias tar.x='tar -x -f'
-  # tar.xz <archive.tar.gz>
-  alias tar.xz='tar -xz -f'
-fi
-
 if command -v youtube-dl > /dev/null 2>&1; then
   test -d "$HOME/Music" || mkdir "$HOME/Music"
   alias ytdl.m="youtube-dl -f 'bestaudio[ext=webm]' -o '$HOME/Music/%(title)s.%(ext)s'"
@@ -96,7 +90,12 @@ export NVM_DIR="$HOME/.nvm"
 test -d "$NVM_DIR" || mkdir "$NVM_DIR"
 test -f "$NVM_DIR/nvm.sh" && \. "$NVM_DIR/nvm.sh" --no-use
 test -f "$NVM_DIR/bash_completion" && \. "$NVM_DIR/bash_completion"
+
 test -f "$HOME/.fzf.bash" && \. "$HOME/.fzf.bash"
+
+if test "$(uname -s)" = 'Darwin'; then
+  export HOMEBREW_NO_ANALYTICS=1
+fi
 
 # Cleanup
 unset -v has_color
