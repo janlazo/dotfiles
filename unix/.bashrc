@@ -31,10 +31,6 @@ if test -t 1 && command -v tput > /dev/null 2>&1; then
   unset -v ncolors
 fi
 
-if test $has_color -eq 1 && (echo "$PS1" | grep -q debian_chroot); then
-  export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\033[00m\]\n\$ '
-fi
-
 unalias -a
 
 test $has_color -eq 1 && alias ls="$(command -v ls) --color=auto"
@@ -53,6 +49,20 @@ alias tar.cz='tar -cz -f'
 # tar.xz <archive.tar.gz>
 alias tar.x='tar -x -f'
 alias tar.xz='tar -xz -f'
+
+export NVM_DIR="$HOME/.nvm"
+test -d "$NVM_DIR" || mkdir "$NVM_DIR"
+test -f "$NVM_DIR/nvm.sh" && \. "$NVM_DIR/nvm.sh" --no-use
+test -f "$NVM_DIR/bash_completion" && \. "$NVM_DIR/bash_completion"
+
+if command -v ruby > /dev/null 2>&1 &&
+    command -v gem > /dev/null 2>&1; then
+  gem_user_dir="$(ruby -r rubygems -e 'puts Gem.user_dir')"
+  test -d "$gem_user_dir" &&
+    test -d "$gem_user_dir/bin" &&
+    export PATH="$gem_user_dir/bin:$PATH"
+  unset -v gem_user_dir
+fi
 
 if command -v vim > /dev/null 2>&1; then
   test -d "$HOME/.vim" || mkdir "$HOME/.vim"
@@ -86,16 +96,18 @@ if command -v youtube-dl > /dev/null 2>&1; then
   alias ytdl.v="youtube-dl -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s'"
 fi
 
-export NVM_DIR="$HOME/.nvm"
-test -d "$NVM_DIR" || mkdir "$NVM_DIR"
-test -f "$NVM_DIR/nvm.sh" && \. "$NVM_DIR/nvm.sh" --no-use
-test -f "$NVM_DIR/bash_completion" && \. "$NVM_DIR/bash_completion"
-
 test -f "$HOME/.fzf.bash" && \. "$HOME/.fzf.bash"
 
-if test "$(uname -s)" = 'Darwin'; then
-  export HOMEBREW_NO_ANALYTICS=1
-fi
+case $(uname -s) in
+  Darwin)
+    export HOMEBREW_NO_ANALYTICS=1
+    ;;
+  Linux)
+    if test $has_color -eq 1 && (echo "$PS1" | grep -q debian_chroot); then
+      export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\033[00m\]\n\$ '
+    fi
+    ;;
+esac
 
 # Cleanup
 unset -v has_color
