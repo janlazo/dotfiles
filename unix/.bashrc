@@ -109,5 +109,7 @@ case $(uname -s) in
     ;;
 esac
 
+test -f "$HOME/.bashrc_local" && \. "$HOME/.bashrc_local"
+
 # Cleanup
 unset -v has_color
