@@ -19,7 +19,7 @@
 	rbc = rebase --continue
 	rbs = rebase --skip
 	fuck = reset HEAD --hard
-	st = status -s
+	st = status -s -uno
 
 	# Submodules
 	subm = submodule
