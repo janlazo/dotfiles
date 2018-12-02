@@ -1,3 +1,1 @@
-{ test -d "$HOME" && test -f "$HOME/.bashrc"; } || return
-. "$HOME/.bashrc"
-test -d "$HOME/bin" && export PATH="$HOME/bin:$PATH"
+test -d "$HOME" && test -f "$HOME/.bashrc" && \. "$HOME/.bashrc"

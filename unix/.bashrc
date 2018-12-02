@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 test -d "$HOME" || return
+test -d "$HOME/bin" && export PATH="$HOME/bin:$PATH"
+test -d "$HOME/.local/bin" && export PATH="$HOME/.local/bin:$PATH"
 
 set -o emacs
 
