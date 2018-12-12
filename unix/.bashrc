@@ -66,20 +66,20 @@ if command -v ruby > /dev/null 2>&1 &&
   unset -v gem_user_dir
 fi
 
+test -d "$HOME/.vim" || mkdir "$HOME/.vim"
+test -f "$HOME/.vim/vimrc" || touch "$HOME/.vim/vimrc"
+test -f "$HOME/.vim/gvimrc" || touch "$HOME/.vim/gvimrc"
+if command -v vim.tiny > /dev/null 2>&1; then
+  alias vim.tiny="$(command -v vim.tiny) -u $HOME/.vim/vimrc"
+fi
 if command -v vim > /dev/null 2>&1; then
-  test -d "$HOME/.vim" || mkdir "$HOME/.vim"
-  test -f "$HOME/.vim/vimrc" || touch "$HOME/.vim/vimrc"
-  alias vim="$(command -v vim) -Nu $HOME/.vim/vimrc"
-
-  if command -v gvim > /dev/null 2>&1; then
-    test -f "$HOME/.vim/gvimrc" || touch "$HOME/.vim/gvimrc"
-    alias gvim="$(command -v gvim) -Nu $HOME/.vim/vimrc -U $HOME/.vim/gvimrc"
-  fi
+  alias vim="$(command -v vim) -u $HOME/.vim/vimrc"
+  alias gvim="vim -g -U $HOME/.vim/gvimrc"
 fi
 
+test -d "$HOME/.config/nvim" || mkdir "$HOME/.config/nvim"
+test -f "$HOME/.config/nvim/init.vim" || touch "$HOME/.config/nvim/init.vim"
 if command -v nvim > /dev/null 2>&1; then
-  test -d "$HOME/.config/nvim" || mkdir "$HOME/.config/nvim"
-  test -f "$HOME/.config/nvim/init.vim" || touch "$HOME/.config/nvim/init.vim"
   alias nvim="$(command -v nvim) -u $HOME/.config/nvim/init.vim"
 fi
 
