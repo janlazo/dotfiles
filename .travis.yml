@@ -1,13 +1,6 @@
 dist: xenial
 language: generic
 
-addon:
-  apt:
-    sources:
-      - debian-sid
-    packages:
-      - shellcheck
-
 script: ci/test.sh
 
 notifications:
