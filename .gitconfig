@@ -1,24 +1,27 @@
 [alias]
 	# General
 	br = branch
+	chp = cherry-pick
+	chp-a = cherry-pick --abort
+	chp-c = cherry-pick --continue
 	co = checkout
 	clo = clone
 	cm = commit
 	df = diff
-	dfc = diff --cached
-	l = log --graph --decorate --oneline
-	la = log --graph --decorate --oneline --all
-	mg = merge
-	ph = push
-	pha = push --all
-	phf = push --force-with-lease
-	phfa = push --force-with-lease --all
-	pl = pull --rebase
-	rb = rebase
-	rba = rebase --abort
-	rbc = rebase --continue
-	rbs = rebase --skip
+	df-c = diff --cached
 	fuck = reset HEAD --hard
+	l = log --graph --decorate --oneline
+	l-a = log --graph --decorate --oneline --all
+	mg = merge --strategy resolve
+	ph = push
+	ph-a = push --all
+	ph-f = push --force-with-lease
+	ph-fa = push --force-with-lease --all
+	pl = pull --rebase --strategy resolve
+	rb = rebase --strategy resolve
+	rb-a = rebase --abort
+	rb-c = rebase --continue
+	rb-s = rebase --skip
 	st = status -s -uno
 
 	# Submodules
