@@ -57,6 +57,19 @@ test -d "$NVM_DIR" || mkdir "$NVM_DIR"
 test -f "$NVM_DIR/nvm.sh" && \. "$NVM_DIR/nvm.sh" --no-use
 test -f "$NVM_DIR/bash_completion" && \. "$NVM_DIR/bash_completion"
 
+export PHPENV_ROOT="$HOME/.phpenv"
+if test -d "${PHPENV_ROOT}"; then
+  export PATH="${PATH}:${PHPENV_ROOT}/bin"
+  export PHP_BUILD_XDEBUG_ENABLE=off
+  eval "$(phpenv init -)"
+fi
+if command -v composer >/dev/null 2>&1; then
+  composer_home=$(composer config --global home)
+  test -d "$composer_home/vendor/bin" &&
+    export PATH="$PATH:$composer_home/vendor/bin"
+  unset -v composer_home
+fi
+
 if command -v ruby > /dev/null 2>&1 &&
     command -v gem > /dev/null 2>&1; then
   gem_user_dir="$(ruby -r rubygems -e 'puts Gem.user_dir')"
