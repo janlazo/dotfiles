@@ -15,9 +15,9 @@ using System.Security.Principal;
 
 public static class Profile
 {
-    public static bool IsAdmin()
-    {
-        var userGroup = new WindowsPrincipal(WindowsIdentity.GetCurrent());
-        return userGroup.IsInRole(WindowsBuiltInRole.Administrator);
-    }
+  public static bool IsAdmin()
+  {
+    var userGroup = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+    return userGroup.IsInRole(WindowsBuiltInRole.Administrator);
+  }
 }

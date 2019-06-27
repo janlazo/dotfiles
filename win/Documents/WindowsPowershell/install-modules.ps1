@@ -1,7 +1,7 @@
 if ($PSVersionTable.PSVersion.Major -lt 5) {
-    return
+  return
 }
 @('PSReadline', 'Pscx').ForEach({
-    Install-Module -Force -Scope CurrentUser -SkipPublisherCheck -AllowClobber `
-        -Name $_
+  Install-Module -Scope CurrentUser -Name $_ `
+    -Force -SkipPublisherCheck -AllowClobber `
 })
