@@ -1,8 +1,7 @@
-# Enable user to run powershell scripts
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 
-# Install Nuget
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 Find-Module
 
-# Trust Powershell Gallery, central repo to download Powershell Modules
-Set-PSRepository -Name PSGallery -InstallationPolicy Trusted 
+Register-PackageSource -ProviderName NuGet -Name NuGet -Trusted `
+  -Location https://www.nuget.org/api/v2
