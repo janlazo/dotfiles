@@ -13,30 +13,26 @@
 # limitations under the License.
 Set-StrictMode -Version Latest
 
-& {
-    foreach ($ext in @('dll', 'cs')) {
-        $path = "$PSScriptRoot/profile.$ext"
-        if (Test-Path "$path") {
-            Add-Type -Path "$path"
-            break
-        }
-    }
+if ($PSVersionTable.PSVersion.Major -lt 5) {
+  return
 }
 
-function Prompt {
-    $curpath = $executionContext.SessionState.Path.CurrentLocation.Path
-    $relpath = $curpath.replace($env:USERPROFILE, '~')
-    $prompt = 'PS' + ('>' * ($nestedPromptLevel + 1)) + ' '
+Add-Type -Path "$PSScriptRoot/profile.cs"
 
-    Write-Host -ForegroundColor Green -nonewline "[$env:USERNAME]"
-    Write-Host -ForegroundColor Blue             " $relpath"
-    return $prompt
+function Prompt {
+  $curpath = $executionContext.SessionState.Path.CurrentLocation.Path
+  $relpath = $curpath.replace($env:USERPROFILE, '~')
+  $prompt = 'PS' + ('>' * ($nestedPromptLevel + 1)) + ' '
+
+  Write-Host -ForegroundColor Green -nonewline "[$env:USERNAME]"
+  Write-Host -ForegroundColor Blue             " $relpath"
+  return $prompt
 }
 
 # Silent wrapper of Get-Command
 function Which {
-    Param([String] $app = "")
-    Get-Command -ErrorAction SilentlyContinue -commandType Application $app
+  Param([String] $app = "")
+  Get-Command -ErrorAction SilentlyContinue -commandType Application $app
 }
 
 # Setup cmd.exe for Visual Studio 2017 so cl.exe has access to core libraries.
@@ -45,36 +41,29 @@ function Which {
 # - https://ss64.com/nt/syntax-64bit.html
 # - https://www.appveyor.com/docs/lang/cpp/
 function Enter-VS2017 {
-    $bits = @('64', '32')[$env:PROCESSOR_ARCHITECTURE -eq 'x86']
-    cmd.exe /k set '"VSCMD_START_DIR=%CD%"' '&' "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
-}
-
-if ($PSVersionTable.PSVersion.Major -lt 5) {
-    return
+  $bits = @('64', '32')[$env:PROCESSOR_ARCHITECTURE -eq 'x86']
+  cmd.exe /k set '"VSCMD_START_DIR=%CD%"' '&' "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
 }
 
 # vi/emacs keybinds
 Import-Module PSReadline
 Set-PSReadlineOption `
-    -EditMode Emacs -BellStyle Visual -ExtraPromptLineCount 1 `
-    -HistoryNoDuplicates -HistorySearchCaseSensitive
+  -EditMode Emacs -BellStyle Visual -ExtraPromptLineCount 1 `
+  -HistoryNoDuplicates -HistorySearchCaseSensitive
 if (Which fzf) {
-    Set-PSReadlineKeyHandler -Chord Ctrl+R -ScriptBlock {
-        $line = $null
-        $cursor = $null
-        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref] $line, [ref] $cursor)
+  Set-PSReadlineKeyHandler -Chord Ctrl+R -ScriptBlock {
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref] $line, [ref] $cursor)
 
-        $history = @(Get-Content -LiteralPath (Get-PSReadlineOption).HistorySavePath)
-        [Array]::reverse($history)
-        $result = $history | fzf
-        if ($LASTEXITCODE) {
-            $result = $line
-        }
-
-        [Microsoft.Powershell.PSConsoleReadline]::RevertLine()
-        [Microsoft.Powershell.PSConsoleReadline]::Insert($result)
+    $history = @(Get-Content -LiteralPath (Get-PSReadlineOption).HistorySavePath)
+    [Array]::reverse($history)
+    $result = $history | fzf
+    if ($LASTEXITCODE) {
+      $result = $line
     }
-}
 
-# emulate unix programs
-Import-Module Pscx
+    [Microsoft.Powershell.PSConsoleReadline]::RevertLine()
+    [Microsoft.Powershell.PSConsoleReadline]::Insert($result)
+  }
+}
