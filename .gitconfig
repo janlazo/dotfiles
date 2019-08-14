@@ -12,7 +12,7 @@
 	fuck = reset HEAD --hard
 	l = log --graph --decorate --oneline
 	l-a = log --graph --decorate --oneline --all
-	mg = merge --strategy resolve
+	mg = merge --no-ff --strategy resolve
 	ph = push
 	ph-a = push --all
 	ph-f = push --force-with-lease
