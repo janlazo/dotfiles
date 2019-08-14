@@ -54,8 +54,8 @@ alias tar.xz='tar -xz -f'
 
 export NVM_DIR="$HOME/.nvm"
 test -d "$NVM_DIR" || mkdir "$NVM_DIR"
-test -f "$NVM_DIR/nvm.sh" && \. "$NVM_DIR/nvm.sh" --no-use
-test -f "$NVM_DIR/bash_completion" && \. "$NVM_DIR/bash_completion"
+test -f "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
+test -f "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"
 
 export PHPENV_ROOT="$HOME/.phpenv"
 if test -d "${PHPENV_ROOT}"; then
@@ -111,7 +111,7 @@ if command -v youtube-dl > /dev/null 2>&1; then
   alias ytdl.v="youtube-dl -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s'"
 fi
 
-test -f "$HOME/.fzf.bash" && \. "$HOME/.fzf.bash"
+test -f "$HOME/.fzf.bash" && source "$HOME/.fzf.bash"
 
 case $(uname -s) in
   Darwin)
@@ -124,7 +124,7 @@ case $(uname -s) in
     ;;
 esac
 
-test -f "$HOME/.bashrc_local" && \. "$HOME/.bashrc_local"
+test -f "$HOME/.bashrc_local" && source "$HOME/.bashrc_local"
 
 # Cleanup
 unset -v has_color
