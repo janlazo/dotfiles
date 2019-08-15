@@ -5,7 +5,7 @@
 	chp-a = cherry-pick --abort
 	chp-c = cherry-pick --continue
 	co = checkout
-	clo = clone
+	clo = clone -q
 	cm = commit
 	df = diff
 	df-c = diff --cached
