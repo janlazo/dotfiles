@@ -13,7 +13,6 @@
 # limitations under the License.
 test -d "$HOME" || return
 test -d "$HOME/bin" && export PATH="$HOME/bin:$PATH"
-test -d "$HOME/.local/bin" && export PATH="$HOME/.local/bin:$PATH"
 
 set -o emacs
 
@@ -52,11 +51,17 @@ alias tar.cz='tar -cz -f'
 alias tar.x='tar -x -f'
 alias tar.xz='tar -xz -f'
 
+# Python
+test -d "$HOME/.local/bin" && export PATH="$HOME/.local/bin:$PATH"
+export PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Nodejs
 export NVM_DIR="$HOME/.nvm"
 test -d "$NVM_DIR" || mkdir "$NVM_DIR"
 test -f "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
 test -f "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"
 
+# PHP
 export PHPENV_ROOT="$HOME/.phpenv"
 if test -d "${PHPENV_ROOT}"; then
   export PATH="${PATH}:${PHPENV_ROOT}/bin"
@@ -70,6 +75,7 @@ if command -v composer >/dev/null 2>&1; then
   unset -v composer_home
 fi
 
+# Ruby
 if command -v ruby > /dev/null 2>&1 &&
     command -v gem > /dev/null 2>&1; then
   gem_user_dir="$(ruby -r rubygems -e 'puts Gem.user_dir')"
@@ -79,6 +85,7 @@ if command -v ruby > /dev/null 2>&1 &&
   unset -v gem_user_dir
 fi
 
+# Vim
 test -d "$HOME/.vim" || mkdir "$HOME/.vim"
 test -f "$HOME/.vim/vimrc" || touch "$HOME/.vim/vimrc"
 test -f "$HOME/.vim/gvimrc" || touch "$HOME/.vim/gvimrc"
@@ -90,20 +97,24 @@ if command -v vim > /dev/null 2>&1; then
   alias gvim="vim -g -U $HOME/.vim/gvimrc"
 fi
 
+# Neovim
 test -d "$HOME/.config/nvim" || mkdir "$HOME/.config/nvim"
 test -f "$HOME/.config/nvim/init.vim" || touch "$HOME/.config/nvim/init.vim"
 if command -v nvim > /dev/null 2>&1; then
   alias nvim="$(command -v nvim) -u $HOME/.config/nvim/init.vim"
 fi
 
+# pngcrush - image compressor
 if command -v pngcrush > /dev/null 2>&1; then
   alias pngcrush.f='pngcrush --brute -l 9'
 fi
 
+# Desume - 3DS emulator
 if command -v desmume > /dev/null 2>&1; then
   alias desmume.jit='desmume --cpu-mode=1'
 fi
 
+# youtube-dl - audio/video downloader
 if command -v youtube-dl > /dev/null 2>&1; then
   test -d "$HOME/Music" || mkdir "$HOME/Music"
   alias ytdl.m="youtube-dl -f 'bestaudio[ext=webm]' -o '$HOME/Music/%(title)s.%(ext)s'"
@@ -111,6 +122,7 @@ if command -v youtube-dl > /dev/null 2>&1; then
   alias ytdl.v="youtube-dl -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s'"
 fi
 
+# Fzf
 test -f "$HOME/.fzf.bash" && source "$HOME/.fzf.bash"
 
 case $(uname -s) in
