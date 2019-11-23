@@ -57,9 +57,10 @@ export PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # Nodejs
 export NVM_DIR="$HOME/.nvm"
-test -d "$NVM_DIR" || mkdir "$NVM_DIR"
-test -f "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
-test -f "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"
+if test -d "$NVM_DIR"; then
+  test -f "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
+  test -f "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"
+fi
 
 # PHP
 export PHPENV_ROOT="$HOME/.phpenv"
