@@ -4,6 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/xurcugqd2xmhks88?svg=true)](https://ci.appveyor.com/project/janlazo/dotfiles)
 
 Cross-platform
+
 - [git](https://git-scm.com/)
     - .gitconfig
 - [GNU Bash][gnu-bash]
@@ -17,10 +18,12 @@ Cross-platform
 - [youtube-dl][github-youtube-dl] - unix/.config/youtube-dl/config
 
 Windows
+
 - [ConEmu][github-conemu] - win/AppData/Roaming/ConEmu.xml
 - [Powershell][github-powershell] - win/Documents/WindowsPowershell/
 
 Unix
+
 - [nano][nano-site] - unix/.nanorc
 - sakura - unix/.config/sakura/sakura.conf
 - [tilda][github-tilda] - unix/.config/tilda/config_0
