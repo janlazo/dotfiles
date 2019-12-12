@@ -89,13 +89,12 @@ fi
 # Vim
 test -d "$HOME/.vim" || mkdir "$HOME/.vim"
 test -f "$HOME/.vim/vimrc" || touch "$HOME/.vim/vimrc"
-test -f "$HOME/.vim/gvimrc" || touch "$HOME/.vim/gvimrc"
 if command -v vim.tiny > /dev/null 2>&1; then
   alias vim.tiny="$(command -v vim.tiny) -u $HOME/.vim/vimrc"
 fi
 if command -v vim > /dev/null 2>&1; then
   alias vim="$(command -v vim) -u $HOME/.vim/vimrc"
-  alias gvim="vim -g -U $HOME/.vim/gvimrc"
+  alias gvim="vim -g -U NONE"
 fi
 
 # Neovim
