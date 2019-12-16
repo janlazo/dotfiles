@@ -86,6 +86,9 @@ if command -v ruby > /dev/null 2>&1 &&
   unset -v gem_user_dir
 fi
 
+# .NET
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 # Vim
 test -d "$HOME/.vim" || mkdir "$HOME/.vim"
 test -f "$HOME/.vim/vimrc" || touch "$HOME/.vim/vimrc"
