@@ -1,5 +1,16 @@
-dist: xenial
-language: generic
+git:
+  quiet: true
+
+language: minimal
+
+services:
+  - docker
+
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
+      dist: bionic
 
 script: ci/test.sh
 
