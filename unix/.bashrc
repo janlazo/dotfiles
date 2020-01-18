@@ -52,14 +52,13 @@ alias tar.x='tar -x -f'
 alias tar.xz='tar -xz -f'
 
 # Python
-test -d "$HOME/.local/bin" && export PATH="$HOME/.local/bin:$PATH"
 export PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # Nodejs
-export NVM_DIR="$HOME/.nvm"
-if test -d "$NVM_DIR"; then
-  test -f "$NVM_DIR/nvm.sh" && source "$NVM_DIR/nvm.sh" --no-use
-  test -f "$NVM_DIR/bash_completion" && source "$NVM_DIR/bash_completion"
+## nvs (https://github.com/jasongin/nvs)
+export NVS_HOME="$HOME/.nvs"
+if test -d "$NVS_HOME"; then
+  test -f "$NVS_HOME/nvs.sh" && source "$NVS_HOME/nvs.sh"
 fi
 
 # PHP
@@ -68,12 +67,11 @@ if test -d "${PHPENV_ROOT}"; then
   export PATH="${PATH}:${PHPENV_ROOT}/bin"
   export PHP_BUILD_XDEBUG_ENABLE=off
   eval "$(phpenv init -)"
-fi
-if command -v composer >/dev/null 2>&1; then
-  composer_home=$(composer config --global home)
-  test -d "$composer_home/vendor/bin" &&
-    export PATH="$PATH:$composer_home/vendor/bin"
-  unset -v composer_home
+# elif command -v composer >/dev/null 2>&1; then
+#   composer_home=$(composer config --global home)
+#   test -d "$composer_home/vendor/bin" &&
+#     export PATH="$PATH:$composer_home/vendor/bin"
+#   unset -v composer_home
 fi
 
 # Ruby
