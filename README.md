@@ -13,6 +13,7 @@ Cross-platform
 - [GNU Emacs][gnu-emacs] - .emacs.d/
 - [micro][github-micro] - unix/.config/micro/
 - [npm][npm-site] - .npmrc
+- [shellcheck][github-shellcheck] - .shellcheckrc
 - [Vim](https://www.vim.org)
     - .vim/vimrc (copy of [shared.vim](https://github.com/janlazo/dotvim8/blob/master/shared.vim))
 - [youtube-dl][github-youtube-dl] - unix/.config/youtube-dl/config
@@ -36,6 +37,7 @@ Apache-2.0
 [github-conemu]: https://github.com/Maximus5/ConEmu
 [github-micro]: https://github.com/zyedidia/micro
 [github-powershell]:  https://github.com/PowerShell/PowerShell
+[github-shellcheck]: https://github.com/koalaman/shellcheck
 [github-tilda]: https://github.com/lanoxx/tilda
 [github-tmux]: https://github.com/tmux/tmux
 [github-youtube-dl]: https://github.com/rg3/youtube-dl
