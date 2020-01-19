@@ -1,10 +1,4 @@
-install:
-  - ps: Install-Module PSScriptAnalyzer
-
 build: off
-
-test_script:
-  - ps: .\ci\test.ps1
 
 notifications:
   - provider: Email
