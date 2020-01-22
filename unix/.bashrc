@@ -53,6 +53,12 @@ alias tar.xz='tar -xz -f'
 
 # Python
 export PIP_DISABLE_PIP_VERSION_CHECK=1
+## https://github.com/pyenv/pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+if test -d "$PYENV_ROOT/bin"; then
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
 
 # Nodejs
 ## nvs (https://github.com/jasongin/nvs)
@@ -63,8 +69,8 @@ fi
 
 # PHP
 export PHPENV_ROOT="$HOME/.phpenv"
-if test -d "${PHPENV_ROOT}"; then
-  export PATH="${PATH}:${PHPENV_ROOT}/bin"
+if test -d "${PHPENV_ROOT}/bin"; then
+  export PATH="${PHPENV_ROOT}/bin:$PATH"
   export PHP_BUILD_XDEBUG_ENABLE=off
   eval "$(phpenv init -)"
 # elif command -v composer >/dev/null 2>&1; then
