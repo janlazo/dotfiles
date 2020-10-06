@@ -7,6 +7,7 @@
 	co = checkout
 	clo = clone -q
 	cm = commit
+	cm-s = commit --gpg-sign
 	df = diff
 	df-c = diff --cached
 	fuck = reset HEAD --hard
@@ -21,6 +22,7 @@
 	rb = rebase --strategy resolve
 	rb-a = rebase --abort
 	rb-c = rebase --continue
+	rb-i = rebase --interactive --keep-empty
 	rb-s = rebase --skip
 	st = status -s -uno
 
@@ -49,6 +51,8 @@
 	modalPrompt = never
 [grep]
 	lineNumber = true
+[log]
+	showSignature = true
 [push]
 	default = current
 [status]
