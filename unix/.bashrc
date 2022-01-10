@@ -33,13 +33,9 @@ if test -t 1 && command -v tput > /dev/null 2>&1; then
 fi
 
 unalias -a
-
-test $has_color -eq 1 && alias ls="$(command -v ls) --color=auto"
 alias ls.v='ls -x -hks -bF --group-directories-first'
-
-test $has_color -eq 1 && alias grep="$(command -v grep) --color=auto"
-
 alias tar="$(command -v tar) -v --totals --block-number"
+
 # Create
 # tar.c  <archive.tar>    <files>
 # tar.cz <archive.tar.gz> <files>
@@ -51,34 +47,13 @@ alias tar.cz='tar -cz -f'
 alias tar.x='tar -x -f'
 alias tar.xz='tar -xz -f'
 
+if test $has_color -eq 1; then
+  alias ls="$(command -v ls) --color=auto"
+  alias grep="$(command -v grep) --color=auto"
+fi
+
 # Python
 export PIP_DISABLE_PIP_VERSION_CHECK=1
-## https://github.com/pyenv/pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-if test -d "$PYENV_ROOT/bin"; then
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-fi
-
-# Nodejs
-## nvs (https://github.com/jasongin/nvs)
-export NVS_HOME="$HOME/.nvs"
-if test -d "$NVS_HOME"; then
-  test -f "$NVS_HOME/nvs.sh" && source "$NVS_HOME/nvs.sh"
-fi
-
-# PHP
-export PHPENV_ROOT="$HOME/.phpenv"
-if test -d "${PHPENV_ROOT}/bin"; then
-  export PATH="${PHPENV_ROOT}/bin:$PATH"
-  export PHP_BUILD_XDEBUG_ENABLE=off
-  eval "$(phpenv init -)"
-# elif command -v composer >/dev/null 2>&1; then
-#   composer_home=$(composer config --global home)
-#   test -d "$composer_home/vendor/bin" &&
-#     export PATH="$PATH:$composer_home/vendor/bin"
-#   unset -v composer_home
-fi
 
 # Ruby
 if command -v ruby > /dev/null 2>&1 &&
@@ -105,7 +80,7 @@ if command -v vim > /dev/null 2>&1; then
 fi
 
 # Neovim
-test -d "$HOME/.config/nvim" || mkdir "$HOME/.config/nvim"
+test -d "$HOME/.config/nvim" || mkdir -p "$HOME/.config/nvim"
 test -f "$HOME/.config/nvim/init.vim" || touch "$HOME/.config/nvim/init.vim"
 if command -v nvim > /dev/null 2>&1; then
   alias nvim="$(command -v nvim) -u $HOME/.config/nvim/init.vim"
@@ -121,12 +96,12 @@ if command -v desmume > /dev/null 2>&1; then
   alias desmume.jit='desmume --cpu-mode=1'
 fi
 
-# youtube-dl - audio/video downloader
-if command -v youtube-dl > /dev/null 2>&1; then
-  test -d "$HOME/Music" || mkdir "$HOME/Music"
-  alias ytdl.m="youtube-dl -f 'bestaudio[ext=webm]' -o '$HOME/Music/%(title)s.%(ext)s'"
-  test -d "$HOME/Videos" || mkdir "$HOME/Videos"
-  alias ytdl.v="youtube-dl -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s'"
+# yt-dlp - youtube-dl fork, audio/video downloader
+test -d "$HOME/Music" || mkdir "$HOME/Music"
+test -d "$HOME/Videos" || mkdir "$HOME/Videos"
+if command -v yt-dlp > /dev/null 2>&1; then
+  alias yt-dlp.m="yt-dlp -f 'bestaudio[ext=webm]' -o '$HOME/Music/%(title)s.%(ext)s'"
+  alias yt-dlp.v="yt-dlp -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s'"
 fi
 
 # Fzf
