@@ -96,14 +96,6 @@ if command -v desmume > /dev/null 2>&1; then
   alias desmume.jit='desmume --cpu-mode=1'
 fi
 
-# yt-dlp - youtube-dl fork, audio/video downloader
-test -d "$HOME/Music" || mkdir "$HOME/Music"
-test -d "$HOME/Videos" || mkdir "$HOME/Videos"
-if command -v yt-dlp > /dev/null 2>&1; then
-  alias yt-dlp.m="yt-dlp -f 'bestaudio[ext=webm]' -o '$HOME/Music/%(title)s.%(ext)s'"
-  alias yt-dlp.v="yt-dlp -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s'"
-fi
-
 # Fzf
 test -f "$HOME/.fzf.bash" && source "$HOME/.fzf.bash"
 
@@ -119,6 +111,14 @@ case $(uname -s) in
 esac
 
 test -f "$HOME/.bashrc_local" && source "$HOME/.bashrc_local"
+
+# yt-dlp - youtube-dl fork, audio/video downloader
+test -d "$HOME/Music" || mkdir "$HOME/Music"
+test -d "$HOME/Videos" || mkdir "$HOME/Videos"
+if command -v yt-dlp > /dev/null 2>&1; then
+  alias yt-dlp.m="yt-dlp -f 'bestaudio[ext=webm]' -o '$HOME/Music/%(title)s.%(ext)s'"
+  alias yt-dlp.v="yt-dlp -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s'"
+fi
 
 # Cleanup
 unset -v has_color
