@@ -45,6 +45,7 @@
 	autocrlf = input
 	eol = lf
 	askPass = ""
+	fileMode = false
 [color]
 	ui = true
 [credential]
@@ -52,7 +53,7 @@
 [grep]
 	lineNumber = true
 [log]
-	showSignature = true
+	showSignature = false
 [push]
 	default = current
 [status]
