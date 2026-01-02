@@ -50,7 +50,7 @@ function YTDLP-M {
 }
 
 function YTDLP-V {
-  yt-dlp.exe -f 'best[ext=webm]' -o "$env:USERPROFILE/Videos/%(title)s.%(ext)s" $args
+  yt-dlp.exe -f 'bestvideo[ext=webm]+bestaudio[ext=webm]' -o "$env:USERPROFILE/Videos/%(title)s.%(ext)s" $args
 }
 
 # vi/emacs keybinds

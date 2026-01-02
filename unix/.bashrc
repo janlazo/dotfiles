@@ -117,7 +117,7 @@ test -d "$HOME/Music" || mkdir "$HOME/Music"
 test -d "$HOME/Videos" || mkdir "$HOME/Videos"
 if command -v yt-dlp > /dev/null 2>&1; then
   alias yt-dlp.m="yt-dlp -f 'bestaudio[ext=webm]' -o '$HOME/Music/%(title)s.%(ext)s'"
-  alias yt-dlp.v="yt-dlp -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s'"
+  alias yt-dlp.v="yt-dlp -f 'bestvideo[ext=webm]+bestaudio[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s'"
 fi
 
 # Cleanup
