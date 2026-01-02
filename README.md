@@ -16,7 +16,7 @@ Cross-platform
 - [shellcheck][github-shellcheck] - .shellcheckrc
 - [Vim](https://www.vim.org)
     - .vim/vimrc (copy of [shared.vim](https://github.com/janlazo/dotvim8/blob/master/shared.vim))
-- [youtube-dl][github-youtube-dl] - unix/.config/youtube-dl/config
+- [yt-dlp][github-yt-dlp] - yt-dlp.conf
 
 Windows
 
@@ -40,7 +40,7 @@ Apache-2.0
 [github-shellcheck]: https://github.com/koalaman/shellcheck
 [github-tilda]: https://github.com/lanoxx/tilda
 [github-tmux]: https://github.com/tmux/tmux
-[github-youtube-dl]: https://github.com/rg3/youtube-dl
+[github-yt-dlp]: https://github.com/yt-dlp/yt-dlp
 [gnu-bash]: https://www.gnu.org/software/bash/
 [gnu-emacs]: https://www.gnu.org/software/emacs/
 [nano-site]: https://www.nano-editor.org/

@@ -45,6 +45,14 @@ function Enter-VS2017 {
   cmd.exe /k set '"VSCMD_START_DIR=%CD%"' '&' "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars$bits.bat"
 }
 
+function YTDLP-M {
+  yt-dlp.exe -f 'bestaudio[ext=webm]' -o '$HOME/Music/%(title)s.%(ext)s' $args
+}
+
+function YTDLP-V {
+  yt-dlp.exe -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s' $args
+}
+
 # vi/emacs keybinds
 Import-Module PSReadline
 Set-PSReadlineOption `
