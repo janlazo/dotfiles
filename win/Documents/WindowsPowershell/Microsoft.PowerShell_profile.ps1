@@ -46,11 +46,11 @@ function Enter-VS2017 {
 }
 
 function YTDLP-M {
-  yt-dlp.exe -f 'bestaudio[ext=webm]' -o '$HOME/Music/%(title)s.%(ext)s' $args
+  yt-dlp.exe -f 'bestaudio[ext=webm]' -o "$env:USERPROFILE/Music/%(title)s.%(ext)s" $args
 }
 
 function YTDLP-V {
-  yt-dlp.exe -f 'best[ext=webm]' -o '$HOME/Videos/%(title)s.%(ext)s' $args
+  yt-dlp.exe -f 'best[ext=webm]' -o "$env:USERPROFILE/Videos/%(title)s.%(ext)s" $args
 }
 
 # vi/emacs keybinds
